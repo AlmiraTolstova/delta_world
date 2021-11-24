@@ -4,6 +4,7 @@ import './App.css';
 import {NewMenu} from "./components/Menu/Menu";
 import {UsergroupAddOutlined} from "@ant-design/icons";
 import {Footer_form} from "./components/Footer-form/Footer-form";
+import {LoginForm} from "./forms/Login/Login";
 
 
 
@@ -13,9 +14,12 @@ function App() {
     return (
         <div className="App">
             <Layout className="wrapper">
-                <Header><NewMenu/></Header>
-
-                <Content className="content">Content</Content>
+                <Header>
+                    <NewMenu/>
+                </Header>
+                <Content className="content">
+                    <LoginForm/>
+                </Content>
                 <Footer className="footer">
                     <Footer_form/>
                 </Footer>

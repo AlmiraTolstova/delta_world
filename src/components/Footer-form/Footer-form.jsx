@@ -15,14 +15,14 @@ export class Footer_form extends React.Component {
         return (
             <div className="footer_component">
 
-            <span>Delta World © 1970-2077</span>
+                <p>Delta World © 1970-2077</p>
 
-        <div className="switch-component">
-            <span>Тёмная тема </span>
-            <Switch defaultChecked onChange={this.onChange}/>
-        </div>
+                <div className="switch-component">
+                    <p>Тёмная тема </p>
+                    <Switch defaultChecked onChange={this.onChange}/>
+                </div>
             </div>
-    )
+        )
     }
 
 }

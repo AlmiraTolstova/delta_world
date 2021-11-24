@@ -55,6 +55,7 @@ body {
 .content {
   flex: 1 0 auto;
   flex-grow: 1;
+  background-color: bisque;
 }
 .footer {
   flex: 0 0 auto;

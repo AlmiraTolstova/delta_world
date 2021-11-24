@@ -1,0 +1,8 @@
+.footer_component{
+    display: flex;
+    gap: 50%;
+}
+
+.switch-component{
+    display: inline-flex;
+}

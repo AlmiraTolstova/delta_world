@@ -5,6 +5,8 @@ import {NewMenu} from "./components/Menu/Menu";
 import {UsergroupAddOutlined} from "@ant-design/icons";
 import {Footer_form} from "./components/Footer-form/Footer-form";
 import {LoginForm} from "./forms/Login/Login";
+import {RegistrationForm} from "./forms/Registration/Registration";
+import {UsersForm} from "./forms/Users/Users";
 
 
 
@@ -19,6 +21,8 @@ function App() {
                 </Header>
                 <Content className="content">
                     <LoginForm/>
+                    <RegistrationForm/>
+                    <UsersForm/>
                 </Content>
                 <Footer className="footer">
                     <Footer_form/>

@@ -18,7 +18,7 @@ export class LoginForm extends React.Component {
         return (
             <div className="login-form">
                 <Form>
-                    <h>Вход</h>
+                    <h1>Вход</h1>
                     <Form.Item
                         label="ID"
                         name="username"

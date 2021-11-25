@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import {Menu} from 'antd';
 import {UsergroupAddOutlined, PictureOutlined, AppstoreOutlined, SettingOutlined} from '@ant-design/icons';
 import logo from './logo.svg'
+import {Switch, Route, Link} from "react-router-dom";
 
 const {SubMenu} = Menu;
 
@@ -28,27 +29,25 @@ export class NewMenu extends React.Component {
                     Delta World
                 </Menu.Item>
 
-                    <Menu.Item key="mail" icon={<UsergroupAddOutlined/>}>
-                        <a href="https://ant.design" target="_self">
+                    <Menu.Item key="users" icon={<UsergroupAddOutlined/>}>
+                        <Link to="/users">
                             Пользователи
-                        </a>
+                        </Link>
                     </Menu.Item>
-
                     <Menu.Item key="posts" icon={<PictureOutlined/>}>
-                        <a href="https://ant.design" target="_self">
+                        <Link to="/">
                             Посты
-                        </a>
+                        </Link>
                     </Menu.Item>
-
-                    <Menu.Item key="posts">
-                        <a href="https://ant.design" target="_self">
+                    <Menu.Item key="login">
+                        <Link to="/login">
                             Вход
-                        </a>
+                        </Link>
                     </Menu.Item>
-                    <Menu.Item key="posts">
-                        <a href="https://ant.design" target="_self">
+                    <Menu.Item key="registration">
+                        <Link to="/registration">
                             Регистрация
-                        </a>
+                        </Link>
                     </Menu.Item>
 
             </Menu>

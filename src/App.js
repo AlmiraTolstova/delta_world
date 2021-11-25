@@ -1,5 +1,8 @@
 import React from "react";
-import {Layout, Switch} from 'antd';
+import {
+    Route, Switch, HashRouter, Redirect,
+} from 'react-router-dom';
+import { Layout } from 'antd';
 import './App.css';
 import {NewMenu} from "./components/Menu/Menu";
 import {UsergroupAddOutlined} from "@ant-design/icons";
@@ -15,22 +18,36 @@ const { Header, Footer, Content } = Layout;
 
 function App() {
     return (
-        <div className="App">
-            <Layout className="wrapper">
-                <Header>
-                    <NewMenu/>
-                </Header>
-                <Content className="content">
-                    <LoginForm/>
-                    <RegistrationForm/>
-                    <Users/>
-                    <Posts/>
-                </Content>
-                <Footer className="footer">
-                    <Footer_form/>
-                </Footer>
-            </Layout>
-        </div>
+        <HashRouter>
+
+            <div className="App">
+                <Layout className="wrapper">
+                    <Header>
+                        <NewMenu/>
+                    </Header>
+                    <Content className="content">
+                        <Switch>
+                            <Route path="/login">
+                                <LoginForm/>
+                            </Route>
+                            <Route path="/registration">
+                                <RegistrationForm/>
+                            </Route>
+                            <Route path="/users">
+                                <Users/>
+                            </Route>
+                            <Route path="/">
+                                <Posts/>
+                            </Route>
+                        </Switch>
+
+                    </Content>
+                    <Footer className="footer">
+                        <Footer_form/>
+                    </Footer>
+                </Layout>
+            </div>
+        </HashRouter>
 );
 }
 

@@ -6,7 +6,8 @@ import {UsergroupAddOutlined} from "@ant-design/icons";
 import {Footer_form} from "./components/Footer-form/Footer-form";
 import {LoginForm} from "./forms/Login/Login";
 import {RegistrationForm} from "./forms/Registration/Registration";
-import {UsersForm} from "./forms/Users/Users";
+import Users from "./forms/Users/Users";
+import Posts from "./forms/Posts/Posts";
 
 
 
@@ -22,7 +23,8 @@ function App() {
                 <Content className="content">
                     <LoginForm/>
                     <RegistrationForm/>
-                    <UsersForm/>
+                    <Users/>
+                    <Posts/>
                 </Content>
                 <Footer className="footer">
                     <Footer_form/>

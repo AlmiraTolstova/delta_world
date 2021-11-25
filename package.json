@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "prop-type": "0.0.1",
     "react-router-dom": "^6.0.2"
   }
 }

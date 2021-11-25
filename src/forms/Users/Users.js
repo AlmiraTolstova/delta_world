@@ -9,6 +9,9 @@ import {EMPTY_STRING} from "../../constants/api/common";
 import {getUsersList} from "../../api/dumMyApi";
 import Post from "../../components/Post/Post";
 import Posts from "../Posts/Posts";
+import { connect } from 'react-redux';
+import {bindActionCreators} from "redux";
+import {loadUsers} from "../../actions/actions";
 
 const Users = () => {
     const [users, setUsers] = useState(EMPTY_STRING);
@@ -51,4 +54,19 @@ const Users = () => {
         </Row>
     )
 };
-export default Users;
+
+// const mapStateToProps = (state)=>{
+//     return{
+//         users: state.users
+//     };
+// }
+
+// export default Users;
+export default connect(
+    (state)=>({
+        users:state.users
+    }),
+    (dispatch)=>({
+        load:bindActionCreators(loadUsers, dispatch)
+    })
+)(Users)

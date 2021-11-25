@@ -4,12 +4,14 @@ import 'antd/dist/antd.css';
 import './index.css';
 import App from './App';
 import {ConfigProvider} from 'antd';
+import {Provider} from "react-redux";
+import store from "./store";
 
 ReactDOM.render(
     <React.StrictMode>
-        {/*<ConfigProvider locale={ruRU}>*/}
+        <Provider store={store}>
             <App/>
-        {/*</ConfigProvider>*/}
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );

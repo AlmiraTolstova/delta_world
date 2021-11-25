@@ -13,7 +13,7 @@ const User = ({avatarImg,userName,lastName,className,title}) => {
                 <div>
                     {title} {userName} {lastName}
                 </div>
-            </div>}
+            </div>
         </div>
     );
 };

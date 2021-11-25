@@ -1,0 +1,2 @@
+export const LOAD_USERS = 'USERS/LOAD_USERS';
+export const LOAD_POSTS = 'POSTS/LOAD_POSTS';

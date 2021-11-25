@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import {Menu} from 'antd';
@@ -8,21 +8,16 @@ import {Switch, Route, Link} from "react-router-dom";
 
 const {SubMenu} = Menu;
 
-export class NewMenu extends React.Component {
-    state = {
-        current: 'mail',
+const NewMenu = ()=> {
+    const handleClick = (e) => {
+        setCurrent(e.key)
+        //setState({current: e.key});
     };
+    const [current, setCurrent] = useState('posts');
 
-    handleClick = e => {
-        console.log('click ', e);
-        this.setState({current: e.key});
-    };
-
-    render() {
-        const {current} = this.state;
         return (
             // <div>
-            <Menu className="navigator" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
+            <Menu className="navigator" onClick={handleClick} selectedKeys={[current]} mode="horizontal">
 
                 <Menu.Item key="logo" disabled>
                     <img src={logo} alt={"logo"}/>
@@ -53,6 +48,7 @@ export class NewMenu extends React.Component {
             </Menu>
 
         );
-    }
-}
+};
+
+export default NewMenu;
 

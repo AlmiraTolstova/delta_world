@@ -6,15 +6,18 @@ import {Form, Input, Button, Checkbox} from 'antd';
 import {Link} from "react-router-dom";
 import {EMPTY_STRING} from "../../constants/api/common";
 import {getUsersByID} from "../../api/dumMyApi";
-import {connect} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {bindActionCreators} from "redux";
-import {loadUsers} from "../../actions/actions";
+import {loginIn} from "../../actions/actions";
+import loginReducer from "../../reducers/loginReducer";
 
 const LoginForm =()=> {
     const [inputValue, setInputValue] = useState(EMPTY_STRING);
     const [userId, setUserId]=useState(EMPTY_STRING);
     const [userFirstName, setUserFirstName] = useState(EMPTY_STRING);
     const [userPhotoURL, setUserPhotoURL] = useState(EMPTY_STRING);
+    const state = useSelector(state=>state);
+    const dispatch = useDispatch();
     // const Demo = () => {
     //     const onFinish = (values) => {
     //         console.log('Success:', values);
@@ -25,15 +28,25 @@ const LoginForm =()=> {
     //     };
     //
     const handleLoginClick =() =>{
-        getUsersByID(inputValue.toString(),
-            (resp) => {
-                setUserId(resp.id.toString());
-                setUserFirstName(resp.firstName);
-                setUserPhotoURL(resp.picture);
-                console.log(`данные получены: ${userId} ${userFirstName} ${userPhotoURL}`);
-            },
-            () => {});
+        // getUsersByID(inputValue.toString(),
+        //     (resp) => {
+        //         setUserId(resp.id.toString());
+        //         setUserFirstName(resp.firstName);
+        //         setUserPhotoURL(resp.picture);
+        //         console.log(`данные получены: ${userId} ${userFirstName} ${userPhotoURL}`);
+        //     },
+        //     () => {});
+        console.log(state);
+        dispatch(getUsersByID(inputValue.toString()));
+        setUserId(state.id);
+        setUserFirstName(state.firstName);
+        setUserPhotoURL(state.picture);
+        console.log(`данные получены: ${userId} ${userFirstName} ${userPhotoURL}`);
     };
+
+    const handleLoginReducerClick=(inputValue)=>{
+
+    }
 
         return (
             <div className="login-form">
@@ -73,15 +86,15 @@ const LoginForm =()=> {
         )
 };
 
-//export default LoginForm;
+// export default LoginForm;
 export default connect(
     (state)=>({
         userId:state.userId,
         userFirstName: state.userFirstName,
         userPhotoURL: state.userPhotoURL
     }),
-    (Dispatch)=>({
-        load:bindActionCreators(getUsersByID, Dispatch)
+    (dispatch)=>({
+        setUserId:bindActionCreators(loginIn, dispatch)
     })
 )(LoginForm)
 

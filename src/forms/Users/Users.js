@@ -9,24 +9,40 @@ import {EMPTY_STRING} from "../../constants/api/common";
 import {getUsersList} from "../../api/dumMyApi";
 import Post from "../../components/Post/Post";
 import Posts from "../Posts/Posts";
-import { connect } from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 import {bindActionCreators, Dispatch} from "redux";
-import {loadUsers} from "../../actions/actions";
+import {loadUsers, loginIn} from "../../actions/actions";
 
 const Users = () => {
-    const [users, setUsers] = useState(EMPTY_STRING);
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(EMPTY_STRING);
+    const [error, setError] = useState(EMPTY_STRING);
+    const state = useSelector(state=>state.usersReducer);
+    // const error = state.us;
+    // const loading = state.user
 
-    useEffect(() => {
-        getUsersList(
-            0,
-           9,
-            (resp) => {
-                setUsers(resp);
-            },
-            () => {
-            },
-        );
-    },[]);
+    console.log(state)
+    const dispatch = useDispatch();
+
+    // useEffect(() => {
+    //
+    //     (getUsersList(
+    //         0,
+    //        9,
+    //         (resp) => {
+    //             setUsers(resp);
+    //             //console.log("вызов loadAllUser");
+    //             //loadAllUsers(resp);
+    //
+    //         },
+    //         () => {
+    //         },
+    //     ));
+    // },[]);
+    useEffect(()=>{
+        dispatch(getUsersList(0,9));
+        setUsers(state.usersList);
+    }, [])
 
     return (
         <Row>
@@ -55,20 +71,14 @@ const Users = () => {
     )
 };
 
-// const mapStateToProps = (state)=>{
-//     return{
-//         users: state.users
-//     };
-// }
-
-// export default Users;
+export default Users;
 
 
-export default connect(
-    (state)=>({
-        users:state.users
-    }),
-    (Dispatch)=>({
-        load:bindActionCreators(loadUsers, Dispatch)
-    })
-)(Users)
+// export default connect(
+//     (state)=>({
+//         users:state.usersList
+//     }),
+//     (dispatch)=>({
+//         loadAllUsers:bindActionCreators(loadUsers, dispatch)
+//     })
+// )(Users)

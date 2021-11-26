@@ -9,6 +9,7 @@ export const loadPosts = () => ({
     type: LOAD_POSTS,
 });
 
-export const loginIn = ()=>({
+export const loginIn = (userId)=>({
     type: LOGIN_IN,
+    userId,
 })

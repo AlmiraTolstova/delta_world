@@ -28,14 +28,32 @@ export const getUsersList = (
     callback,
     errorCallback,
 ) => {
-    fetch(USER_URL, {
+    fetch(`${USER_URL}?page=${page.toString()}&limit=${limit.toString()}`, {
         method: METHOD_GET,
         headers: new Headers({
             [APP_ID_FIELD]: APP_ID_VALUE,
-            [PAGE_FIELD]: '0',//page.toString(),
-            [LIMIT_FIELD]: '6',//limit.toString(),
+            [PAGE_FIELD]: page.toString(),
+            [LIMIT_FIELD]: limit.toString(),
         }),
     }).then((response) => response.json())
         .then((response) => callback(response.data))
+        .catch(errorCallback);
+};
+
+export const getUsersByID = (
+    id,
+    callback,
+    errorCallback,
+) => {
+    fetch(`${USER_URL}/${id}`, {
+        method: METHOD_GET,
+        headers: new Headers({
+            [APP_ID_FIELD]: APP_ID_VALUE
+        }),
+    }).then((response) => response.json())
+        .then((response) => {
+            callback(response);
+            //console.log(response.id);
+        })
         .catch(errorCallback);
 };

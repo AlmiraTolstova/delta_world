@@ -10,7 +10,7 @@ import {getUsersList} from "../../api/dumMyApi";
 import Post from "../../components/Post/Post";
 import Posts from "../Posts/Posts";
 import { connect } from 'react-redux';
-import {bindActionCreators} from "redux";
+import {bindActionCreators, Dispatch} from "redux";
 import {loadUsers} from "../../actions/actions";
 
 const Users = () => {
@@ -26,7 +26,7 @@ const Users = () => {
             () => {
             },
         );
-    });
+    },[]);
 
     return (
         <Row>
@@ -62,11 +62,13 @@ const Users = () => {
 // }
 
 // export default Users;
+
+
 export default connect(
     (state)=>({
         users:state.users
     }),
-    (dispatch)=>({
-        load:bindActionCreators(loadUsers, dispatch)
+    (Dispatch)=>({
+        load:bindActionCreators(loadUsers, Dispatch)
     })
 )(Users)

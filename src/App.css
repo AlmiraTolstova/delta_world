@@ -47,6 +47,9 @@ body {
   /*padding: 10px;*/
   height: 100%;
 }
+.header{
+  /*margin-bottom:24px ;*/
+}
 .wrapper {
   display: flex;
   flex-direction: column;

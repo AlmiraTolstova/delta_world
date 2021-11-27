@@ -1,4 +1,4 @@
-import {LOAD_POSTS, LOAD_USERS, LOGIN_IN} from "../constants/actions/actions_const";
+import {CREATE_USER, LOAD_POSTS, LOAD_USERS, LOGIN_IN, LOGIN_OUT} from "../constants/actions/actions_const";
 
 
 export const loadUsers = () => ({
@@ -12,4 +12,17 @@ export const loadPosts = () => ({
 export const loginIn = (userId)=>({
     type: LOGIN_IN,
     userId,
+})
+
+export const loginOut = ()=>({
+    type: LOGIN_OUT,
+})
+
+export const createUser =(firstName, male, dateOfBirth, email, phone)=>({
+    type: CREATE_USER,
+    firstName,
+    male,
+    dateOfBirth,
+    email,
+    phone
 })

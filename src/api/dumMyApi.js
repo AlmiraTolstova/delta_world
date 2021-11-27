@@ -1,9 +1,10 @@
 import {
     APP_ID_FIELD, APP_ID_VALUE, COMMENT_URL, LIMIT_FIELD, PAGE_FIELD, POST_URL, USER_URL,
 } from '../constants/api/dumMyApi';
-import { METHOD_GET } from '../constants/api/common';
+import {METHOD_GET, METHOD_POST} from '../constants/api/common';
 import {Dispatch} from "redux";
 import {
+    CREATE_USER, CREATE_USER_ERROR,
     LOAD_USERS,
     LOADING_USERS,
     LOADING_USERS_ERROR,
@@ -18,7 +19,7 @@ export const getPostsList = (
     callback,
     errorCallback,
 ) => {
-    fetch(POST_URL, {
+    fetch(`${POST_URL}?page=${page.toString()}&limit=${limit.toString()}`, {
         method: METHOD_GET,
         headers: new Headers({
             [APP_ID_FIELD]: APP_ID_VALUE,
@@ -51,6 +52,7 @@ export const getPostsList = (
 export const getUsersList = (
     page,
     limit
+
 ) => {
     return async (Dispatch) => {
         console.log("запускаем запрос пользователей")
@@ -66,6 +68,7 @@ export const getUsersList = (
             const resp = await response.json();
             console.log(resp.data);
             //Dispatch((response) => response.json())
+
             Dispatch( {type: LOAD_USERS, payload: resp.data})
         }
         catch(error){
@@ -103,6 +106,40 @@ export const getUsersByID = (
         }
     }
 };
+
+export const createUser = (
+        firstName,
+        lastName,
+        male,
+        dateOfBirth,
+        email,
+        phone
+)=>{
+    return async (Dispatch) => {
+        console.log("запрос создания юзера");
+        console.log(JSON.stringify({'firstName':firstName,'lastName':lastName,'email':email}));
+        try {
+            const response = await fetch(`${USER_URL}/create/`, {
+                method: METHOD_POST,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE,
+                    'Content-Type': 'application/json;charset=utf-8'
+                }),
+                body: JSON.stringify({'firstName':firstName,'lastName':lastName,'email':email})
+            })
+            const resp = await response.json();
+            console.log(resp);
+
+            Dispatch( {type: CREATE_USER, payload: resp})
+        } catch (error){
+            console.log("получили ошибку выполнения запроса создания нового пользователя");
+            (Dispatch({type: CREATE_USER_ERROR, payload:"Произошла ошибка выполнения запроса создания нового пользователя"}))
+        }
+    }
+}
+
+
+
 // export const getUsersByID = (
 //     id,
 //     callback,

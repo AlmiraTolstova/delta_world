@@ -41,13 +41,15 @@ const Users = () => {
     // },[]);
     useEffect(()=>{
         dispatch(getUsersList(0,9));
-        setUsers(state.usersList);
+
     }, [])
+
+
 
     return (
         <Row>
-            {users.length != 0
-                ? users.map((elem, index) => (
+            {state.usersList.length != 0
+                ? state.usersList.map((elem, index) => (
                     <User
                         key={index}
                         avatarImg={elem.picture}

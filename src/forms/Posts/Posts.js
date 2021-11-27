@@ -29,7 +29,7 @@ const Posts=()=>{
         // imgUrl={"https://img.dummyapi.io/photo-1564694202779-bc908c327862.jpg"}
         // datePost={"01.01.2020"}
         // />
-        <div>
+        <div className="post">
             {posts.length !=0
             ? posts.map((elem, index) => (
                     <Post

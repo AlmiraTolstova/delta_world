@@ -16,7 +16,7 @@ const LoginForm =()=> {
     const [userId, setUserId]=useState(EMPTY_STRING);
     const [userFirstName, setUserFirstName] = useState(EMPTY_STRING);
     const [userPhotoURL, setUserPhotoURL] = useState(EMPTY_STRING);
-    const state = useSelector(state=>state);
+    const state = useSelector(state=>state.loginReducer);
     const dispatch = useDispatch();
     // const Demo = () => {
     //     const onFinish = (values) => {
@@ -38,9 +38,9 @@ const LoginForm =()=> {
         //     () => {});
         console.log(state);
         dispatch(getUsersByID(inputValue.toString()));
-        setUserId(state.id);
-        setUserFirstName(state.firstName);
-        setUserPhotoURL(state.picture);
+        setUserId(state.userId);
+        setUserFirstName(state.userFirstName);
+        setUserPhotoURL(state.userPhotoURL);
         console.log(`данные получены: ${userId} ${userFirstName} ${userPhotoURL}`);
     };
 
@@ -69,7 +69,10 @@ const LoginForm =()=> {
                             span: 16,
                         }}>
                         <Button type="primary" htmlType="submit" onClick={handleLoginClick}>
-                            Войти
+                            <Link to="/">
+                                Войти
+                            </Link>
+
                         </Button>
                         <Button
                             href=""

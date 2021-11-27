@@ -8,7 +8,7 @@ import NewMenu from "./components/Menu/Menu";
 import {UsergroupAddOutlined} from "@ant-design/icons";
 import {Footer_form} from "./components/Footer-form/Footer-form";
 import LoginForm from "./forms/Login/Login";
-import {RegistrationForm} from "./forms/Registration/Registration";
+import RegistrationForm from "./forms/Registration/Registration";
 import Users from "./forms/Users/Users";
 import Posts from "./forms/Posts/Posts";
 
@@ -22,7 +22,7 @@ function App() {
 
             <div className="App">
                 <Layout className="wrapper">
-                    <Header>
+                    <Header className="header">
                         <NewMenu/>
                     </Header>
                     <Content className="content">

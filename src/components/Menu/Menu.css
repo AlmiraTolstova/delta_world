@@ -1,4 +1,14 @@
 .navigator{
     display: flex;
-    background-color: blue;
+    background-color: gray;
+    justify-content: space-between;
+}
+
+.user-info__photo{
+    width: 50px;
+    border-radius: 50%;
+    padding-right: 8px;
+}
+.user-info__name{
+    padding-right: 8px;
 }

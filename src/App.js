@@ -11,6 +11,7 @@ import LoginForm from "./forms/Login/Login";
 import RegistrationForm from "./forms/Registration/Registration";
 import Users from "./forms/Users/Users";
 import Posts from "./forms/Posts/Posts";
+import PersonalArea from "./forms/PersonalArea/PersonalArea";
 
 
 
@@ -35,6 +36,9 @@ function App() {
                             </Route>
                             <Route path="/users">
                                 <Users/>
+                            </Route>
+                            <Route path="/personalarea">
+                                <PersonalArea/>
                             </Route>
                             <Route path="/">
                                 <Posts/>

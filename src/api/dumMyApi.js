@@ -4,7 +4,7 @@ import {
 import {METHOD_GET, METHOD_POST} from '../constants/api/common';
 import {Dispatch} from "redux";
 import {
-    CREATE_USER, CREATE_USER_ERROR,
+    CREATE_USER, CREATE_USER_ERROR, GET_POSTS_BY_USER_ID, GET_USER_FULL_INFO,
     LOAD_USERS,
     LOADING_USERS,
     LOADING_USERS_ERROR,
@@ -107,6 +107,55 @@ export const getUsersByID = (
     }
 };
 
+
+export const getUsersFullInfoByID = (
+    id,
+) => {
+
+    return async (Dispatch) => {
+        console.log("запрос проверки данных юзера");
+        try {
+            const response = await fetch(`${USER_URL}/${id}`, {
+                method: METHOD_GET,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE
+                })
+            })
+            const resp = await response.json();
+            console.log(resp);
+
+            Dispatch( {type: GET_USER_FULL_INFO, payload: resp})
+        } catch (error){
+            console.log("получили ошибку выполнения запроса проверки пользователя"+error.text);
+        }
+    }
+};
+
+export const getPostsByUserId = (
+    id,
+    page,
+    limit
+) => {
+
+    return async (Dispatch) => {
+        console.log("запрос списка постов по id юзера");//?page=${page.toString()}&limit=${limit.toString()}
+        try {
+            const response = await fetch(`${USER_URL}/${id}/post?page=${page.toString()}&limit=${limit.toString()}`, {
+                method: METHOD_GET,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE
+                })
+            })
+            const resp = await response.json();
+            console.log(resp);
+
+            Dispatch( {type: GET_POSTS_BY_USER_ID, payload: resp.data})
+        } catch (error){
+            console.log("получили ошибку выполнения запроса постов пользователя"+error.text);
+        }
+    }
+};
+
 export const createUser = (
         firstName,
         lastName,
@@ -125,7 +174,8 @@ export const createUser = (
                     [APP_ID_FIELD]: APP_ID_VALUE,
                     'Content-Type': 'application/json;charset=utf-8'
                 }),
-                body: JSON.stringify({'firstName':firstName,'lastName':lastName,'email':email})
+                //приходят данные вида: firstName, secondName, male, dateOfBirth, email, phone
+                body: JSON.stringify({'firstName':firstName,'lastName':lastName,'email':email, 'gender':male, 'dateOfBirth':dateOfBirth, 'phone':phone})
             })
             const resp = await response.json();
             console.log(resp);

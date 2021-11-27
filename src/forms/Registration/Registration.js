@@ -7,6 +7,7 @@ import moment from 'moment';
 import {useDispatch, useSelector} from "react-redux";
 import {EMPTY_STRING} from "../../constants/api/common";
 import {createUser} from "../../api/dumMyApi";
+import {Link} from "react-router-dom";
 
 
 const RegistrationForm =()=> {
@@ -75,15 +76,23 @@ const RegistrationForm =()=> {
     const [dateOfBirth, setDateOfBirth] = useState('01.01.1990');
     const [email, setEmail] = useState(EMPTY_STRING);
     const [phone, setPhone] = useState('+01234567890');
-    const [form] = Form.useForm();
+
+
     const onRegistrationButtonClick=()=>{
-
-
-        //const formData: UserCreate =
-        //console.log(form.getFieldsValue());
-        //const formBody = getJSONStringifyFromFormData(formData);
+        const namming = firstName;
+        const namePos = namming.indexOf(' ');
+        if(namePos>0){
+            setFirstName(namming.slice(0, namePos));
+            setSecondName(namming.slice(namePos, namming.length));
+        }
+        else
+        {
+            setFirstName(namming);
+            setSecondName('notLastName');
+        }
+        //console.log(firstName, secondName, male, dateOfBirth, email, phone);
         dispatch(createUser(firstName, secondName, male, dateOfBirth, email, phone));
-        console.log(firstName, secondName, male, dateOfBirth, email, phone);
+
     }
 
 
@@ -91,7 +100,6 @@ const RegistrationForm =()=> {
         <Form>
             <h1>Регистрация</h1>
             <Form.Item
-                form={form}
                 name={['user', 'name']}
                 label="Имя:"
                 rules={[
@@ -142,7 +150,9 @@ const RegistrationForm =()=> {
                 />
             </Form.Item>
             <Button type="primary" htmlType="submit" onClick={onRegistrationButtonClick}>
-                Зарегистрироваться
+               <Link to="/">
+                   Зарегистрироваться
+               </Link>
             </Button>
             <Button type="text" htmlType="submit">
                 Уже есть аккаунт? Войти

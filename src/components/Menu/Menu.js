@@ -7,8 +7,9 @@ import logo from './logo.svg'
 import {Switch, Route, Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import './Menu.css'
-import {getUsersList} from "../../api/dumMyApi";
+import {getPostsByUserId, getUsersFullInfoByID, getUsersList} from "../../api/dumMyApi";
 import {loginOut} from "../../actions/actions";
+import {GET_USER_FULL_INFO, SET_NEED_USER_ID} from "../../constants/actions/actions_const";
 
 const {SubMenu} = Menu;
 
@@ -19,6 +20,7 @@ const NewMenu = ()=> {
     };
     const [current, setCurrent] = useState('posts');
     const state = useSelector(state=>state.loginReducer);
+    const statePAR = useSelector((state=>state.personalAreaReducer));
     const dispatch = useDispatch();
 
     useEffect(()=>{
@@ -28,6 +30,13 @@ const NewMenu = ()=> {
 
     const onExitButtonClick=()=>{
         dispatch(loginOut());
+    }
+
+    const onSetNeedUserInfoId=()=>{
+        //dispatch({type: SET_NEED_USER_ID, payload: state.userId});
+        console.log("запрос фул инфо по пользователю")
+        dispatch(getUsersFullInfoByID(state.userId));
+        dispatch(getPostsByUserId(state.userId, 0, 5));
     }
 
         return (
@@ -61,17 +70,23 @@ const NewMenu = ()=> {
                     </Link>
                 </Menu.Item>
 
-                <Menu.Item className="user-info">
-                    <img className="user-info__photo" src={state.userPhotoURL}/>
-                    <span className="user-info__name">{state.userFirstName}</span>
-
-                    <Link to="/exit">
+                <Menu.Item className="user-info" >
+                    <Link to="/personalarea">
+                        <img className="user-info__photo" src={state.userPhotoURL}/>
+                        <Button type={"link"} onClick={onSetNeedUserInfoId}>
+                            {state.userFirstName}
+                        </Button>
+                    </Link>
+                </Menu.Item>
+                <Menu.Item>
+                    <Link to="/">
                         <Button type={"link"} onClick={onExitButtonClick}>
                             Выйти
                         </Button>
-
                     </Link>
                 </Menu.Item>
+
+
             </Menu>
 
         );

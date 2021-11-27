@@ -56,8 +56,9 @@ const Users = () => {
                         userName={elem.firstName}
                         lastName={elem.lastName}
                         title={elem.title}
+                        id={elem.id}
                     />
-                )) : "Произошла ошибка при загрузке списска пользователей"}
+                )) : "Загрузка..."}
 
             }
             {/*<Col xs={{span: 5, offset: 1}} lg={{span: 6, offset: 2}}>*/}

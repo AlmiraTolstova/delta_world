@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, {useEffect, useState} from 'react';
 import './User.css'
-import {getUsersFullInfoByID} from "../../api/dumMyApi";
+import {getPostsByUserId, getUsersFullInfoByID} from "../../api/dumMyApi";
 import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 
@@ -11,6 +11,7 @@ const User = ({avatarImg,userName,lastName,className,title, id}) => {
     const onHandleClickByUser=()=>{
         console.log(id);
         dispatch(getUsersFullInfoByID(id));
+        dispatch(getPostsByUserId(id, 0, 5));
     }
 
 

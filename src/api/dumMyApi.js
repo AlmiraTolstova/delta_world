@@ -1,7 +1,7 @@
 import {
     APP_ID_FIELD, APP_ID_VALUE, COMMENT_URL, LIMIT_FIELD, PAGE_FIELD, POST_URL, USER_URL,
 } from '../constants/api/dumMyApi';
-import {METHOD_GET, METHOD_POST} from '../constants/api/common';
+import {METHOD_GET, METHOD_POST, METHOD_PUT} from '../constants/api/common';
 import {Dispatch} from "redux";
 import {
     CREATE_USER, CREATE_USER_ERROR, GET_POSTS_BY_USER_ID, GET_USER_FULL_INFO,
@@ -184,6 +184,38 @@ export const createUser = (
         } catch (error){
             console.log("получили ошибку выполнения запроса создания нового пользователя");
             (Dispatch({type: CREATE_USER_ERROR, payload:"Произошла ошибка выполнения запроса создания нового пользователя"}))
+        }
+    }
+}
+
+export const updateUser = (
+    id,
+    firstName,
+    lastName,
+    dateOfBirth,
+    phone
+)=>{
+    return async (Dispatch) => {
+        console.log("запрос обновления юзера");
+        console.log(JSON.stringify({'firstName':firstName,'lastName':lastName}));
+        try {
+            const response = await fetch(`${USER_URL}/${id}`, {
+                method: METHOD_PUT,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE,
+                    'Content-Type': 'application/json;charset=utf-8'
+                }),
+                //приходят данные вида: firstName, secondName, male, dateOfBirth, email, phone
+                body: JSON.stringify({'firstName':firstName,'lastName':lastName, 'dateOfBirth':dateOfBirth, 'phone':phone})
+            })
+            const resp = await response.json();
+            console.log(resp);
+
+            Dispatch( {type: CREATE_USER, payload: resp})
+            Dispatch(getUsersFullInfoByID(id));
+        } catch (error){
+            console.log("получили ошибку выполнения запроса обновления пользователя");
+
         }
     }
 }

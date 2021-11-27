@@ -5,6 +5,8 @@ import {useEffect} from "react";
 import {getPostsByUserId, getUsersFullInfoByID} from "../../api/dumMyApi";
 import personalAreaReducer from "../../reducers/personalAreaReducer";
 import Post from "../../components/Post/Post";
+import {Button} from "antd";
+import {Link} from "react-router-dom";
 
 
 const PersonalArea =()=>
@@ -12,7 +14,8 @@ const PersonalArea =()=>
     //const stateLR = useSelector(state=>state.loginReducer);
     const statePAR = useSelector((state=>state.personalAreaReducer));
     const statePUR = useSelector((state=>state.postsByUserReducer));
-    const dispatch = useDispatch();
+    const stateLR = useSelector((state=>state.loginReducer));
+    //const dispatch = useDispatch();
     console.log(statePAR);
     console.log(statePUR);
     // useEffect(()=>{
@@ -23,12 +26,18 @@ const PersonalArea =()=>
     return(
         <div className="personal-area">
             <div>
+                <Link to="/userprofile">
+                    <Button disabled={(stateLR.userId==statePAR.id)?false:true}>
+                        Редактировать
+                    </Button>
+                </Link>
                     <img src={statePAR.picture}/>
                     {statePAR.title} {statePAR.firstName} {statePAR.lastName}
                     Пол: {statePAR.gender=='male'?"Мужской":"Женский"}
                     Дата регистрации: {statePAR.registerDate}
                     Email: {statePAR.email}
                     Телефон: {statePAR.phone}
+                    ID: {statePAR.id}
             </div>
             <div>
                 {(statePUR.postsList.length !=0)

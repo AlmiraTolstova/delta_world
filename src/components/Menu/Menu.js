@@ -33,7 +33,6 @@ const NewMenu = ()=> {
     }
 
     const onSetNeedUserInfoId=()=>{
-        //dispatch({type: SET_NEED_USER_ID, payload: state.userId});
         console.log("запрос фул инфо по пользователю")
         dispatch(getUsersFullInfoByID(state.userId));
         dispatch(getPostsByUserId(state.userId, 0, 5));

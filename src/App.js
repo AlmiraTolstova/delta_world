@@ -12,6 +12,7 @@ import RegistrationForm from "./forms/Registration/Registration";
 import Users from "./forms/Users/Users";
 import Posts from "./forms/Posts/Posts";
 import PersonalArea from "./forms/PersonalArea/PersonalArea";
+import UserProfile from "./forms/UserProfile/UserProfile";
 
 
 
@@ -39,6 +40,9 @@ function App() {
                             </Route>
                             <Route path="/personalarea">
                                 <PersonalArea/>
+                            </Route>
+                            <Route path="/userprofile">
+                                <UserProfile/>
                             </Route>
                             <Route path="/">
                                 <Posts/>

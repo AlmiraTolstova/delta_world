@@ -1,5 +1,22 @@
-.user-form{
-    width: 400px;
-    height: 400px;
-    background-color: darkcyan;
+.user{
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 320px;
+    height: 320px;
+    background-color: #FFFF;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    margin-bottom: 24px;
+}
+
+.user__container{
+ text-align: center;
+}
+
+.user__img{
+    padding-bottom: 8px;
+    border-radius: 8px;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
 }

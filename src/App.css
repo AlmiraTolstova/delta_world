@@ -74,6 +74,10 @@ body, #root {
 
   font-size: 1.0417vw;
 }
+
+.header{
+  background-color: #6200EE;
+}
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -87,6 +91,6 @@ body, #root {
   /*padding-bottom: 90px;*/
 }
 .footer {
-  background-color: darkcyan;
+  background-color: #6200EE;
   flex: 0 0 auto;
 }

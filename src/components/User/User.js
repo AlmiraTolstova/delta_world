@@ -16,11 +16,11 @@ const User = ({avatarImg,userName,lastName,className,title, id}) => {
 
 
     return (
-        <div className="user-form">
+        <div className="user">
             {/*{loading ? 'Идёт загрузка' :*/}
-            <div>
+            <div className="user__container">
                 <Link to="/personalarea">
-                    <img src={avatarImg} onClick={onHandleClickByUser}/>
+                    <img className="user__img" src={avatarImg} onClick={onHandleClickByUser}/>
                 </Link>
                 <div>
                     {title} {userName} {lastName}

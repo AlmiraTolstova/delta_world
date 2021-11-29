@@ -71,14 +71,19 @@
 html,
 body, #root {
   height: 100%;
+
+  font-size: 1.0417vw;
 }
 .wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
+
 }
 .content {
   flex: 1 0 auto;
+  overflow:hidden;
+
   /*padding-bottom: 90px;*/
 }
 .footer {

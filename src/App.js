@@ -13,6 +13,7 @@ import Users from "./forms/Users/Users";
 import Posts from "./forms/Posts/Posts";
 import PersonalArea from "./forms/PersonalArea/PersonalArea";
 import UserProfile from "./forms/UserProfile/UserProfile";
+import OpenPost from "./forms/OpenPost/OpenPost";
 
 
 
@@ -44,6 +45,7 @@ function App() {
                             <Route path="/userprofile">
                                 <UserProfile/>
                             </Route>
+
                             <Route path="/">
                                 <Posts/>
                             </Route>

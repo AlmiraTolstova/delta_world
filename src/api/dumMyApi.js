@@ -27,7 +27,8 @@ export const getPostsList = (
             [LIMIT_FIELD]: '6',//limit.toString(),
         }),
     }).then((response) => response.json())
-        .then((response) => callback(response.data))
+        .then((response) => {callback(response.data);
+            console.log(response.data);})
         .catch(errorCallback);
 };
 
@@ -227,7 +228,7 @@ export const getCommentsByPostID = (
 ) => {
 
     return async (Dispatch) => {
-        console.log("запрос списка комментов по id поста");//?page=${page.toString()}&limit=${limit.toString()}
+        console.log("запрос списка комментов по id поста ", id);//?page=${page.toString()}&limit=${limit.toString()}
         try {
             const response = await fetch(`${POST_URL}/${id}/comment?page=${page.toString()}&limit=${limit.toString()}`, {
                 method: METHOD_GET,
@@ -237,7 +238,7 @@ export const getCommentsByPostID = (
             })
             const resp = await response.json();
             console.log(resp.data);
-
+            console.log("мы внутри запроса данных комментов")
             Dispatch( {type: GET_LIST_COMMENTS_BY_POST_ID, payload: resp.data})
         } catch (error){
             console.log("получили ошибку выполнения запроса постов пользователя"+error.text);

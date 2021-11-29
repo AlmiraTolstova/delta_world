@@ -5,6 +5,7 @@ import thunk from "redux-thunk";
 import personalAreaReducer from "./reducers/personalAreaReducer";
 import postsByUserReducer from "./reducers/postsByUserReducer";
 import commentReducer from "./reducers/commentReducer";
+import openPostReducer from "./reducers/openPostReducer";
 
 
 const store = createStore(
@@ -14,6 +15,7 @@ const store = createStore(
         personalAreaReducer,
         postsByUserReducer,
         commentReducer,
+        openPostReducer,
     }), applyMiddleware(thunk)
 
 );

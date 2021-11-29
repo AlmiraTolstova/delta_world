@@ -22,7 +22,7 @@ function App() {
     return (
         <HashRouter>
 
-            <div className="App">
+            {/*<div className="App">*/}
                 <Layout className="wrapper">
                     <Header className="header">
                         <NewMenu/>
@@ -54,7 +54,7 @@ function App() {
                         <Footer_form/>
                     </Footer>
                 </Layout>
-            </div>
+            {/*</div>*/}
         </HashRouter>
 );
 }

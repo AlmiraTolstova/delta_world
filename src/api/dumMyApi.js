@@ -4,7 +4,7 @@ import {
 import {METHOD_GET, METHOD_POST, METHOD_PUT} from '../constants/api/common';
 import {Dispatch} from "redux";
 import {
-    CREATE_USER, CREATE_USER_ERROR, GET_POSTS_BY_USER_ID, GET_USER_FULL_INFO,
+    CREATE_USER, CREATE_USER_ERROR, GET_LIST_COMMENTS_BY_POST_ID, GET_POSTS_BY_USER_ID, GET_USER_FULL_INFO,
     LOAD_USERS,
     LOADING_USERS,
     LOADING_USERS_ERROR,
@@ -220,7 +220,30 @@ export const updateUser = (
     }
 }
 
+export const getCommentsByPostID = (
+    id,
+    page,
+    limit
+) => {
 
+    return async (Dispatch) => {
+        console.log("запрос списка комментов по id поста");//?page=${page.toString()}&limit=${limit.toString()}
+        try {
+            const response = await fetch(`${POST_URL}/${id}/comment?page=${page.toString()}&limit=${limit.toString()}`, {
+                method: METHOD_GET,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE
+                })
+            })
+            const resp = await response.json();
+            console.log(resp.data);
+
+            Dispatch( {type: GET_LIST_COMMENTS_BY_POST_ID, payload: resp.data})
+        } catch (error){
+            console.log("получили ошибку выполнения запроса постов пользователя"+error.text);
+        }
+    }
+};
 
 // export const getUsersByID = (
 //     id,

@@ -14,9 +14,7 @@ export class Footer_form extends React.Component {
     render() {
         return (
             <div className="footer_component">
-
                 <p>Delta World © 1970-2077</p>
-
                 <div className="switch-component">
                     <p>Тёмная тема </p>
                     <Switch defaultChecked onChange={this.onChange}/>

@@ -16,7 +16,10 @@ const OpenPost =({title,firstName,lastName, dataPost,imgUrl, textPost})=>{
     useEffect(()=>{
         console.log(stateCR);
         console.log(statePR.showPostComments);
-    },[statePR.showPostComments]);
+        console.log("хук обновления содержимого");
+    },[stateCR]);
+
+
 
    return(
        <div className={statePR.showPostComments ? "modal active":"modal"} onClick={(e)=>e.stopPropagation()}>
@@ -39,14 +42,14 @@ const OpenPost =({title,firstName,lastName, dataPost,imgUrl, textPost})=>{
                {stateCR.listComments.length !=0
                    ? stateCR.listComments.map((elem, index) => (
                        <div >
-                           {stateCR.listComments.message}
-                           {stateCR.listComments.publishDate}
-                           {/*{stateCR.listComments.owner.title}*/}
-                           {/*{stateCR.listComments.owner.firstName}*/}
-                           {/*{stateCR.listComments.owner.lastName}*/}
-                           {/*<img src={stateCR.listComments.owner.picture}/>*/}
+                           {elem.message}
+                           {elem.publishDate}
+                           {elem.owner.title}
+                           {elem.owner.firstName}
+                           {elem.owner.lastName}
+                           <img src={elem.owner.picture}/>
                        </div>
-                   )):"Произошла ошибка при загрузке постов"}
+                   )):"Пока никто не оставил комментариев..."}
            </div>
        </div>
    )

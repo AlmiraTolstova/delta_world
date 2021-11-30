@@ -10,6 +10,7 @@ import './Menu.css'
 import {getPostsByUserId, getUsersFullInfoByID, getUsersList} from "../../api/dumMyApi";
 import {loginOut} from "../../actions/actions";
 import {GET_USER_FULL_INFO, SET_NEED_USER_ID} from "../../constants/actions/actions_const";
+import {ThemeContextConsumer} from "../../context/ThemeContext";
 
 const {SubMenu} = Menu;
 
@@ -38,55 +39,61 @@ const NewMenu = ()=> {
         dispatch(getPostsByUserId(state.userId, 0, 5));
     }
 
-        return (
-            // <div>
-            <Menu className="navigator" onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-                <Menu.Item key="logo" disabled>
-                    <img src={logo} alt={"logo"}/>
-                    Delta World
-                </Menu.Item>
+    return (
+            <ThemeContextConsumer>
+                {
+                    (context) =>(
+                    <Menu className={`navigator ${context.darkTheme && 'navigator__dark'}`} onClick={handleClick}
+                          selectedKeys={[current]} mode="horizontal">
+                        <Menu.Item key="logo" disabled>
+                            <img src={logo} alt={"logo"}/>
+                            Delta World
+                        </Menu.Item>
 
-                <Menu.Item key="users" icon={<UsergroupAddOutlined/>}>
-                    <Link to="/users">
-                        Пользователи
-                    </Link>
-                </Menu.Item>
+                        <Menu.Item key="users" icon={<UsergroupAddOutlined/>}>
+                            <Link to="/users">
+                                Пользователи
+                            </Link>
+                        </Menu.Item>
 
-                <Menu.Item key="posts" icon={<PictureOutlined/>}>
-                    <Link to="/">
-                        Посты
-                    </Link>
-                </Menu.Item>
+                        <Menu.Item key="posts" icon={<PictureOutlined/>}>
+                            <Link to="/">
+                                Посты
+                            </Link>
+                        </Menu.Item>
 
-                <Menu.Item key="login">
-                    <Link to="/login">
-                        Вход
-                    </Link>
-                </Menu.Item>
-                <Menu.Item key="registration">
-                    <Link to="/registration">
-                        Регистрация
-                    </Link>
-                </Menu.Item>
+                        <Menu.Item key="login">
+                            <Link to="/login">
+                                Вход
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="registration">
+                            <Link to="/registration">
+                                Регистрация
+                            </Link>
+                        </Menu.Item>
 
-                <Menu.Item className="user-info" >
-                    <Link to="/personalarea">
-                        <img className="user-info__photo" src={state.userPhotoURL}/>
-                        <Button type={"link"} onClick={onSetNeedUserInfoId}>
-                            {state.userFirstName}
-                        </Button>
-                    </Link>
-                </Menu.Item>
-                <Menu.Item>
-                    <Link to="/">
-                        <Button type={"link"} onClick={onExitButtonClick}>
-                            Выйти
-                        </Button>
-                    </Link>
-                </Menu.Item>
+                        <Menu.Item className="user-info">
+                            <Link to="/personalarea">
+                                <img className="user-info__photo" src={state.userPhotoURL}/>
+                                <Button type={"link"} onClick={onSetNeedUserInfoId}>
+                                    {state.userFirstName}
+                                </Button>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item>
+                            <Link to="/">
+                                <Button type={"link"} onClick={onExitButtonClick}>
+                                    Выйти
+                                </Button>
+                            </Link>
+                        </Menu.Item>
 
 
-            </Menu>
+                    </Menu>
+                    )
+                }
+            </ThemeContextConsumer>
 
         );
 };

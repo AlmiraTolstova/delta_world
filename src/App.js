@@ -14,6 +14,7 @@ import Posts from "./forms/Posts/Posts";
 import PersonalArea from "./forms/PersonalArea/PersonalArea";
 import UserProfile from "./forms/UserProfile/UserProfile";
 import OpenPost from "./forms/OpenPost/OpenPost";
+import {ThemeContextProvider} from "./context/ThemeContext";
 
 
 
@@ -22,7 +23,7 @@ const { Header, Footer, Content } = Layout;
 function App() {
     return (
         <HashRouter>
-
+            <ThemeContextProvider>
             {/*<div className="App">*/}
                 <Layout className="wrapper">
                     <Header className="header">
@@ -57,6 +58,7 @@ function App() {
                     </Footer>
                 </Layout>
             {/*</div>*/}
+            </ThemeContextProvider>
         </HashRouter>
 );
 }

@@ -23,21 +23,6 @@ const Users = () => {
     console.log(state)
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //
-    //     (getUsersList(
-    //         0,
-    //        9,
-    //         (resp) => {
-    //             setUsers(resp);
-    //             //console.log("вызов loadAllUser");
-    //             //loadAllUsers(resp);
-    //
-    //         },
-    //         () => {
-    //         },
-    //     ));
-    // },[]);
     useEffect(()=>{
         dispatch(getUsersList(0,9));
 
@@ -60,15 +45,7 @@ const Users = () => {
                 )) : "Загрузка..."}
 
             }
-            {/*<Col xs={{span: 5, offset: 1}} lg={{span: 6, offset: 2}}>*/}
-            {/*    Col*/}
-            {/*</Col>*/}
-            {/*<Col xs={{span: 5, offset: 1}} lg={{span: 6, offset: 2}}>*/}
-            {/*    Col*/}
-            {/*</Col>*/}
-            {/*<Col xs={{span: 5, offset: 1}} lg={{span: 6, offset: 2}}>*/}
-            {/*    Col{User}*/}
-            {/*</Col>*/}
+
         </div>
     )
 };

@@ -1,0 +1,7 @@
+.theme-checkbox {
+    display: inline;
+    text-align: center;
+}
+.theme-checkbox__input{
+    margin-left: 8px;
+}

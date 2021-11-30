@@ -3,11 +3,9 @@
     background-color: #6200EE;
     justify-content: space-between;
 }
-
-.navigator__dark{
-    background-color: black;
+.navigator_dark{
+    background-color: #2D2D2D;
 }
-
 .user-info__photo{
     width: 50px;
     border-radius: 50%;

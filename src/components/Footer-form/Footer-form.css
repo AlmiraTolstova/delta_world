@@ -1,6 +1,5 @@
 .footer_component{
     display: flex;
-    /*gap: 50%;*/
     justify-content: space-between;
     color: white;
 }
@@ -8,4 +7,8 @@
 .switch-component{
     display: inline-flex;
     color: white;
+}
+
+.footer__component_dark{
+    background-color: #2D2D2D;
 }

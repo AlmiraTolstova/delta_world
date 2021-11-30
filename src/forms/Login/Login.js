@@ -10,6 +10,7 @@ import {connect, useDispatch, useSelector} from "react-redux";
 import {bindActionCreators} from "redux";
 import {loginIn} from "../../actions/actions";
 import loginReducer from "../../reducers/loginReducer";
+import {ThemeContextConsumer} from "../../context/ThemeContext";
 
 const LoginForm =()=> {
     const [inputValue, setInputValue] = useState(EMPTY_STRING);
@@ -18,24 +19,8 @@ const LoginForm =()=> {
     const [userPhotoURL, setUserPhotoURL] = useState(EMPTY_STRING);
     const state = useSelector(state=>state.loginReducer);
     const dispatch = useDispatch();
-    // const Demo = () => {
-    //     const onFinish = (values) => {
-    //         console.log('Success:', values);
-    //     };
-    //
-    //     const onFinishFailed = (errorInfo) => {
-    //         console.log('Failed:', errorInfo);
-    //     };
-    //
+
     const handleLoginClick =() =>{
-        // getUsersByID(inputValue.toString(),
-        //     (resp) => {
-        //         setUserId(resp.id.toString());
-        //         setUserFirstName(resp.firstName);
-        //         setUserPhotoURL(resp.picture);
-        //         console.log(`данные получены: ${userId} ${userFirstName} ${userPhotoURL}`);
-        //     },
-        //     () => {});
         console.log(state);
         dispatch(getUsersByID(inputValue.toString()));
         setUserId(state.userId);
@@ -45,13 +30,12 @@ const LoginForm =()=> {
     };
 
     const handleLoginReducerClick=(inputValue)=>{
-
     }
-
         return (
-            <div className="login-form">
-                <Form>
-                    <h1>Вход</h1>
+            <ThemeContextConsumer>{
+                (context) =>(
+                    <Form className={`login-form ${context.darkTheme && 'login-form_dark'}`}>
+                    <h1 className={`login-form__h1 ${context.darkTheme && 'login-form__h1_dark'}`}>Вход</h1>
                     <Form.Item
                         label="ID"
                         name="username"
@@ -61,31 +45,21 @@ const LoginForm =()=> {
                                 message: 'Please input your username!',
                             },
                         ]}>
-                        <Input value={inputValue} onChange={(e)=>setInputValue(e.target.value)}/>
+                        <Input value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
                     </Form.Item>
-                    <Form.Item
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                        }}>
+                    <div className="login-form__buttons">
                         <Button type="primary" htmlType="submit" onClick={handleLoginClick}>
                             <Link to="/">
                                 Войти
                             </Link>
-
                         </Button>
-                        <Button
-                            href=""
-                            type="link">
-                            <Link to="/registration">
-                                Ещё нет аккаунта? Зарегистрироваться
-                            </Link>
-
-                        </Button>
-
-                    </Form.Item>
-                </Form>
-            </div>
+                        <Link className="login-form__btn2" to="/registration">
+                            Ещё нет аккаунта? Зарегистрироваться
+                        </Link>
+                    </div>
+                </Form>)
+            }
+            </ThemeContextConsumer>
         )
 };
 

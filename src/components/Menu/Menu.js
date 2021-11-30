@@ -43,7 +43,7 @@ const NewMenu = ()=> {
             <ThemeContextConsumer>
                 {
                     (context) =>(
-                    <Menu className={`navigator ${context.darkTheme && 'navigator__dark'}`} onClick={handleClick}
+                    <Menu className={`navigator ${context.darkTheme && 'navigator_dark'}`} onClick={handleClick}
                           selectedKeys={[current]} mode="horizontal">
                         <Menu.Item key="logo" disabled>
                             <img src={logo} alt={"logo"}/>
@@ -88,13 +88,10 @@ const NewMenu = ()=> {
                                 </Button>
                             </Link>
                         </Menu.Item>
-
-
                     </Menu>
                     )
                 }
             </ThemeContextConsumer>
-
         );
 };
 

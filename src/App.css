@@ -94,3 +94,12 @@ body, #root {
   background-color: #6200EE;
   flex: 0 0 auto;
 }
+.header_dark{
+  background-color: #2D2D2D;
+}
+.content_dark{
+  background-color: #121212;
+}
+.footer_dark{
+  background-color: #2D2D2D;
+}

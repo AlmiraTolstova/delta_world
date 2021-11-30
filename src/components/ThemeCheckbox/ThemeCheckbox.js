@@ -1,6 +1,7 @@
 import React from 'react';
 import {ThemeContextConsumer} from "../../context/ThemeContext";
-import type {ThemeContextState} from "../../context/ThemeContext";
+import './ThemeCheckbox.css'
+
 
 
 export class ThemeCheckbox extends React.Component {

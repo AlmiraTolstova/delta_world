@@ -1,0 +1,53 @@
+.personal-area{
+    max-width: 100rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    margin-top: 3rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+.personal-area__user{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 100%;
+    background-color: #FFFF;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    margin-bottom: 24px;
+}
+.personal-area__user_dark{
+    background-color: #565656;
+    color: white;
+}
+.personal-area__photo{
+    padding-bottom: 8px;
+    border-radius: 8px;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}
+.personal-area__posts{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 100%;
+    background-color: #FFFF;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+.personal-area__posts_dark{
+    background-color: #565656;
+}
+.personal-area__post{
+    padding-right: 24px;
+}

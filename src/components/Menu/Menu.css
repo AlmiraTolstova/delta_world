@@ -4,7 +4,14 @@
     justify-content: space-between;
 }
 .navigator_dark{
-    background-color: #2D2D2D;
+    background-color: #565656;
+}
+.navigator-text{
+    color: darkcyan;
+}
+.navigator-text_dark{
+    color: white;
+
 }
 .user-info__photo{
     width: 50px;

@@ -45,7 +45,7 @@ const NewMenu = ()=> {
                     (context) =>(
                     <Menu className={`navigator ${context.darkTheme && 'navigator_dark'}`} onClick={handleClick}
                           selectedKeys={[current]} mode="horizontal">
-                        <Menu.Item key="logo" disabled>
+                        <Menu.Item  key="logo" disabled>
                             <img src={logo} alt={"logo"}/>
                             Delta World
                         </Menu.Item>

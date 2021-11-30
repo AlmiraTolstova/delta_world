@@ -1,11 +1,5 @@
 import React, {useState} from 'react';
 import "./Post.css"
-// import {EMPTY_STRING} from "../../constants/api/common";
-// import {useDispatch} from "react-redux";
-// import {getCommentsByPostID} from "../../api/dumMyApi";
-// import {Link} from "react-router-dom";
-// import OpenPost from "../../forms/OpenPost/OpenPost";
-// import {SHOW_POST_WITH_COMMENTS} from "../../constants/actions/actions_const";
 import {Tooltip} from "antd";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 

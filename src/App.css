@@ -91,15 +91,15 @@ body, #root {
   /*padding-bottom: 90px;*/
 }
 .footer {
-  background-color: #6200EE;
+  background-color: #565656;
   flex: 0 0 auto;
 }
 .header_dark{
-  background-color: #2D2D2D;
+  background-color: #565656;
 }
 .content_dark{
-  background-color: #121212;
+  background-color: #2D2D2D;
 }
 .footer_dark{
-  background-color: #2D2D2D;
+  background-color: #565656;
 }

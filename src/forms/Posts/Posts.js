@@ -11,7 +11,6 @@ import {SHOW_POST_WITH_COMMENTS} from "../../constants/actions/actions_const";
 import {setIn} from "immutable";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 
-
 const Posts = () => {
     const [posts, setPosts] = useState(EMPTY_STRING);
     const [openPostActive, setOpenPost] = useState(false);
@@ -24,7 +23,6 @@ const Posts = () => {
     const [lastName, setLastName] = useState(EMPTY_STRING);
     const [dataPost, setDataPost] = useState(EMPTY_STRING);
     const [imgUrl, setImgUrl] = useState(EMPTY_STRING);
-
 
     const loadPosts = (page, limit) => {
         getPostsList(
@@ -81,9 +79,7 @@ const Posts = () => {
                                 />
                             </div>
                         )) : "Идет загрузка"}
-
                     <OpenPost
-
                         title={postTitle}
                         firstName={firstName}
                         lastName={lastName}
@@ -91,7 +87,6 @@ const Posts = () => {
                         imgUrl={imgUrl}
                         textPost={postText}
                     />
-
                 </div>)}
         </ThemeContextConsumer>
     )

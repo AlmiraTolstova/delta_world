@@ -76,7 +76,7 @@ body, #root {
 }
 
 .header{
-  background-color: #6200EE;
+  background-color: #7C4DFF;
 }
 .wrapper {
   display: flex;
@@ -87,11 +87,11 @@ body, #root {
 .content {
   flex: 1 0 auto;
   overflow:hidden;
+  background-color: gainsboro;
 
-  /*padding-bottom: 90px;*/
 }
 .footer {
-  background-color: #565656;
+  background-color: #7C4DFF;
   flex: 0 0 auto;
 }
 .header_dark{

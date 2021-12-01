@@ -10,7 +10,7 @@ const Post = ({name, lastName, text, imgUrl, datePost, avatarUrl, title, postId,
             {
                 (context) => (
                     <div className={`post ${context.darkTheme && 'post_dark'}`}>
-                        <div className="post__container">
+                        <div className={`post__container ${context.darkTheme && 'post__container_dark'}`}>
                             <div className="post__container_heading">
                                 <img className="post__photo" src={avatarUrl}/>
                                 <div className="post__user-name">

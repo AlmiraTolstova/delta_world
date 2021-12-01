@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateUser} from "../../api/dumMyApi";
 import loginReducer from "../../reducers/loginReducer";
 import "./UserProfilie.css"
+import {ThemeContextConsumer} from "../../context/ThemeContext";
 
 
 const UserProfile = () => {
@@ -46,35 +47,39 @@ const UserProfile = () => {
     }
 
     return (
-        <div className="user-profile">
-            <div className="user-profile__container">
-                <img className="user-profile__img" src={img}/>
-                <div className="user-profile__bts">
-                <button>Обновить фотографию</button>
-                <button>Удалить фотографию</button>
+        <ThemeContextConsumer>
+            {
+                (context) =>(
+                <div className="user-profile">
+                <div className={`user-profile__container ${context.darkTheme && 'user-profile__container_dark'}`}>
+                    <img className="user-profile__img" src={img}/>
+                    <div className="user-profile__bts">
+                        <button>Обновить фотографию</button>
+                        <button>Удалить фотографию</button>
+                    </div>
+                    <Form.Item>
+                        <span>Имя: </span>
+                        <input value={name} onChange={(e) => setName(e.target.value)}/>
+                    </Form.Item>
+                    <Form.Item>
+                        <span>Пол: </span>
+                        <input value={gender}/>
+                    </Form.Item>
+                    <Form.Item>
+                        <span>Дата рождения: </span>
+                        <input value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)}/>
+                    </Form.Item>
+                    <Form.Item>
+                        <span>Телефон </span>
+                        <input value={phone} onChange={(e) => setPhone(e.target.value)}/>
+                    </Form.Item>
+                    <Link>
+                        <Button type="primary" onClick={onSendNewInfoAboutUser}>Сохранить</Button>
+                    </Link>
                 </div>
-                <Form.Item>
-                    <span>Имя: </span>
-                    <input value={name} onChange={(e) => setName(e.target.value)}/>
-                </Form.Item>
-                <Form.Item>
-                    <span>Пол: </span>
-                    <input value={gender}/>
-                </Form.Item>
-                <Form.Item>
-                    <span>Дата рождения: </span>
-                    <input value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)}/>
-                </Form.Item>
-                <Form.Item>
-                    <span>Телефон </span>
-                    <input value={phone} onChange={(e) => setPhone(e.target.value)}/>
-                </Form.Item>
-                <Link>
-                    <Button type="primary" onClick={onSendNewInfoAboutUser}>Сохранить</Button>
-                </Link>
-            </div>
-        </div>
-
+            </div>)
+            }
+        </ThemeContextConsumer>
     )
 };
 

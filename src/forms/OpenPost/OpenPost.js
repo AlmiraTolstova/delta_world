@@ -36,7 +36,6 @@ const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost}) => {
                                     dispatch({type: HIDE_POST_WITH_COMMENTS, payload: false});
                                     console.log("показывать окно? ", statePR.showPostComments)
                                 }}>
-                                    {/*Закрыть окно*/}
                                 </Button>
                             </div>
                             <div className="modal__container">

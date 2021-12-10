@@ -7,11 +7,15 @@
     width: 320px;
     height: 500px;
     background-color: white;
-    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
 }
 .registration_dark{
     background-color: #565656;
 }
 .registration-text_dark{
     color: white;
+}
+.registration__close-btn{
+
 }

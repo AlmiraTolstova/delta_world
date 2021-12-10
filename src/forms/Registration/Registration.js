@@ -9,6 +9,8 @@ import {EMPTY_STRING} from "../../constants/api/common";
 import {createUser} from "../../api/dumMyApi";
 import {Link} from "react-router-dom";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
+import {CloseCircleOutlined} from "@ant-design/icons";
+import {HIDE_POST_WITH_COMMENTS} from "../../constants/actions/actions_const";
 
 const RegistrationForm = () => {
     const dateFormat = 'YYYY/MM/DD';
@@ -60,6 +62,8 @@ const RegistrationForm = () => {
         <ThemeContextConsumer>{
             (context) => (
                 <div className={`registration ${context.darkTheme && 'registration_dark'}`}>
+                    <Button className="registration__close-btn" shape="circle" icon={<CloseCircleOutlined/>}>
+                    </Button>
                     <Form>
                         <h1 className={` ${context.darkTheme && 'registration-text_dark'}`}>Регистрация</h1>
                         <Form.Item

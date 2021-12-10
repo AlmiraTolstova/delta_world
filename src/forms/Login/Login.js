@@ -11,6 +11,7 @@ import {bindActionCreators} from "redux";
 import {loginIn} from "../../actions/actions";
 import loginReducer from "../../reducers/loginReducer";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
+import {CloseCircleOutlined} from "@ant-design/icons";
 
 const LoginForm =()=> {
     const [inputValue, setInputValue] = useState(EMPTY_STRING);
@@ -35,6 +36,8 @@ const LoginForm =()=> {
             <ThemeContextConsumer>{
                 (context) =>(
                     <Form className={`login-form ${context.darkTheme && 'login-form_dark'}`}>
+                        <Button className="registration__close-btn" shape="circle" icon={<CloseCircleOutlined/>}>
+                        </Button>
                     <h1 className={`login-form__h1 ${context.darkTheme && 'login-form__h1_dark'}`}>Вход</h1>
                     <Form.Item
                         label="ID"

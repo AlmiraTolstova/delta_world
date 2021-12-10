@@ -1,7 +1,6 @@
 .user-form{
     max-width: 2000px;
     display: flex;
-    /*justify-content: space-between;*/
     flex-flow: wrap;
     flex-direction: row;
     flex-wrap: wrap;

@@ -20,9 +20,7 @@ const Post = ({name, lastName, text, imgUrl, datePost, avatarUrl, title, postId,
                                 </div>
                                 <div className="post__date">{datePost}</div>
                             </div>
-                            {/*<div className="post__image">*/}
                             <img className="post__image" src={imgUrl}/>
-                            {/*</div>*/}
                             <div className="post__text">
                                 {text}
                             </div>

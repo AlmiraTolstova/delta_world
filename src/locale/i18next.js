@@ -7,14 +7,14 @@ import {APP_RU} from "./russsian/app";
 i18next
     .use(initReactI18next)
     .init({
-        resources:{
-            en:{
-                translation:APP_EN
+        resources: {
+            en: {
+                translation: APP_EN
             },
-            ru:{
-                translation:APP_RU
+            ru: {
+                translation: APP_RU
             }
         }
     })
 
-i18next.changeLanguage('en')
+i18next.changeLanguage('ru')

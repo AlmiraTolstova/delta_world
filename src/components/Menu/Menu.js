@@ -11,6 +11,7 @@ import {getPostsByUserId, getUsersFullInfoByID, getUsersList} from "../../api/du
 import {loginOut} from "../../actions/actions";
 import {GET_USER_FULL_INFO, SET_NEED_USER_ID} from "../../constants/actions/actions_const";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
+import {useTranslation} from "react-i18next";
 
 const {SubMenu} = Menu;
 
@@ -39,6 +40,7 @@ const NewMenu = ()=> {
         dispatch(getPostsByUserId(state.userId, 0, 5));
     }
 
+    const{t}=useTranslation();
     return (
             <ThemeContextConsumer>
                 {
@@ -52,24 +54,24 @@ const NewMenu = ()=> {
 
                         <Menu.Item key="users" icon={<UsergroupAddOutlined/>}>
                             <Link to="/users">
-                                Пользователи
+                                {t('users')}
                             </Link>
                         </Menu.Item>
 
                         <Menu.Item key="posts" icon={<PictureOutlined/>}>
                             <Link to="/">
-                                Посты
+                                {t('posts')}
                             </Link>
                         </Menu.Item>
 
                         <Menu.Item key="login">
                             <Link to="/login">
-                                Вход
+                                {t('login')}
                             </Link>
                         </Menu.Item>
                         <Menu.Item key="registration">
                             <Link to="/registration">
-                                Регистрация
+                                {t('registration')}
                             </Link>
                         </Menu.Item>
 
@@ -84,7 +86,7 @@ const NewMenu = ()=> {
                         <Menu.Item>
                             <Link to="/">
                                 <Button type={"link"} onClick={onExitButtonClick}>
-                                    Выйти
+                                    {t('logOff')}
                                 </Button>
                             </Link>
                         </Menu.Item>

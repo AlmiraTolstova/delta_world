@@ -8,6 +8,7 @@ import {updateUser} from "../../api/dumMyApi";
 import loginReducer from "../../reducers/loginReducer";
 import "./UserProfilie.css"
 import {ThemeContextConsumer} from "../../context/ThemeContext";
+import {useTranslation} from "react-i18next";
 
 
 const UserProfile = () => {
@@ -45,6 +46,7 @@ const UserProfile = () => {
         console.log(statePAR.id, firstName, SecondName, dateOfBirth, phone)
         dispatch(updateUser(statePAR.id, firstName, SecondName, dateOfBirth, phone));
     }
+    const{t}=useTranslation();
 
     return (
         <ThemeContextConsumer>
@@ -54,27 +56,27 @@ const UserProfile = () => {
                 <div className={`user-profile__container ${context.darkTheme && 'user-profile__container_dark'}`}>
                     <img className="user-profile__img" src={img}/>
                     <div className="user-profile__bts">
-                        <button>Обновить фотографию</button>
-                        <button>Удалить фотографию</button>
+                        <button>{t('userProfileReplace')}</button>
+                        <button> {t('userProfileDelete')}</button>
                     </div>
                     <Form.Item>
-                        <span>Имя: </span>
+                        <span>{t('name')} : </span>
                         <input value={name} onChange={(e) => setName(e.target.value)}/>
                     </Form.Item>
                     <Form.Item>
-                        <span>Пол: </span>
+                        <span>{t('gender')}: </span>
                         <input value={gender}/>
                     </Form.Item>
                     <Form.Item>
-                        <span>Дата рождения: </span>
+                        <span>{t('dateOfBirth')}: </span>
                         <input value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)}/>
                     </Form.Item>
                     <Form.Item>
-                        <span>Телефон </span>
+                        <span>{t('phone')} </span>
                         <input value={phone} onChange={(e) => setPhone(e.target.value)}/>
                     </Form.Item>
                     <Link>
-                        <Button type="primary" onClick={onSendNewInfoAboutUser}>Сохранить</Button>
+                        <Button type="primary" onClick={onSendNewInfoAboutUser}>{t('save')}</Button>
                     </Link>
                 </div>
             </div>)

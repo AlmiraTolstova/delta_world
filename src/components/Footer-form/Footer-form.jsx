@@ -2,7 +2,7 @@ import React from 'react';
 import i18next from 'i18next';
 import 'antd/dist/antd.css';
 import './Footer-form.css'
-import {ThemeCheckbox} from "../ThemeCheckbox/ThemeCheckbox";
+import ThemeCheckbox from "../ThemeCheckbox/ThemeCheckbox";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 import {useTranslation} from "react-i18next";
 import '../../locale/i18next';
@@ -28,7 +28,7 @@ const Footer_form =() =>{
                     <div className={`footer_component ${context.darkTheme && 'footer__component_dark'}`}>
                         <p>Delta World © 1970-2077</p>
                         <div id="app">
-                            <p>{t('helloMessage')}</p>
+                            {/*<p>{t('helloMessage')}</p>*/}
                             <div>
                                 <Button value='en' type="button" onClick={handleChangeLanguage}>EN</Button>
                                 <Button value='ru' type="button" onClick={handleChangeLanguage}>RU</Button>

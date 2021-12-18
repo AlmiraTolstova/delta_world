@@ -1,5 +1,5 @@
 import {
-    APP_ID_FIELD, APP_ID_VALUE, COMMENT_URL, LIMIT_FIELD, PAGE_FIELD, POST_URL, USER_URL,
+    APP_ID_FIELD, APP_ID_VALUE, COMMENT_URL, LIMIT_FIELD, PAGE_FIELD, POST_URL, PROXY_USER_URL, USER_URL,
 } from '../constants/api/dumMyApi';
 import {METHOD_GET, METHOD_POST, METHOD_PUT} from '../constants/api/common';
 import {Dispatch} from "redux";
@@ -12,6 +12,9 @@ import {
     LOGIN_IN_ERROR
 } from "../constants/actions/actions_const";
 import {loginIn} from "../actions/actions";
+
+
+
 
 export const getPostsList = (
     page,
@@ -83,6 +86,35 @@ export const getUsersList = (
     }
 
 }
+
+//--------------------Запрос пользователей от проки сервера----------------------------
+export const getUsersListFromProxy = (
+    page,
+    limit
+
+) => {
+    return async (Dispatch) => {
+        console.log("запускаем запрос пользователей от прокси сервера: ", PROXY_USER_URL)
+        try{
+            const response = await fetch(`${PROXY_USER_URL}?page=${page.toString()}&limit=${limit.toString()}`, {
+                method: METHOD_GET,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE,
+                    [PAGE_FIELD]: page.toString(),
+                    [LIMIT_FIELD]: limit.toString(),
+                }),
+            })
+            const resp = await response.json();
+            console.log('полученные данные от прокси сервера: ',resp.data);
+            //Dispatch( {type: LOAD_USERS, payload: resp.data})
+        }
+        catch(error){
+            console.log("получили ошибку выполнения запроса пользователей"+error.text);
+            //(Dispatch({type: LOADING_USERS_ERROR, payload:"Произошла какая то ошибка при загрузке пользователей"}))
+        }
+    }
+}
+//-------------------------------------------------------------------------------------
 
 export const getUsersByID = (
     id,

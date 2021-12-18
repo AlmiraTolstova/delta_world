@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import User from "../../components/User/User";
 import {EMPTY_STRING} from "../../constants/api/common";
-import {getUsersList} from "../../api/dumMyApi";
+import {getUsersList, getUsersListFromProxy} from "../../api/dumMyApi";
 import Post from "../../components/Post/Post";
 import Posts from "../Posts/Posts";
 import {connect, useDispatch, useSelector} from 'react-redux';
@@ -23,7 +23,8 @@ const Users = () => {
 
     useEffect(()=>{
         dispatch(getUsersList(0,9));
-
+        console.log("тут запрос пользователей от прокси")
+        getUsersListFromProxy();
     }, [])
 
 

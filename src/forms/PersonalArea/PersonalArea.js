@@ -1,22 +1,21 @@
 import {useDispatch, useSelector} from "react-redux";
-// import loginReducer from "../../reducers/loginReducer";
-// import User from "../../components/User/User";
-// import {useEffect} from "react";
-// import {getPostsByUserId, getUsersFullInfoByID} from "../../api/dumMyApi";
-// import personalAreaReducer from "../../reducers/personalAreaReducer";
 import Post from "../../components/Post/Post";
 import {Button} from "antd";
 import {Link} from "react-router-dom";
 import './PersonalArea.css'
 import {ThemeContextConsumer} from "../../context/ThemeContext";
+import {useTranslation} from "react-i18next";
+import {useEffect, useState} from "react";
+import {getUsersList} from "../../api/dumMyApi";
 
 const PersonalArea = () => {
     const statePAR = useSelector((state => state.personalAreaReducer));
     const statePUR = useSelector((state => state.postsByUserReducer));
     const stateLR = useSelector((state => state.loginReducer));
-    //const dispatch = useDispatch();
     console.log(statePAR);
     console.log(statePUR);
+    const{t}=useTranslation();
+
 
     return (
         <ThemeContextConsumer>{
@@ -26,15 +25,15 @@ const PersonalArea = () => {
                     <img className="personal-area__photo" src={statePAR.picture}/>
                     <div>
                         <h2>{statePAR.title} {statePAR.firstName} {statePAR.lastName}</h2>
-                        <p>Пол: {statePAR.gender == 'male' ? "Мужской" : "Женский"}</p>
-                        <p>Дата регистрации: {statePAR.registerDate}</p>
+                        <p>{t('gender')}: {statePAR.gender == 'male' ? t('masculine'): t('female')}</p>
+                        <p>{t('registrationDate')}: {statePAR.registerDate}</p>
                         <p>Email: {statePAR.email}</p>
-                        <p>Телефон: {statePAR.phone}</p>
+                        <p>{t('phone')}: {statePAR.phone}</p>
                         <p>ID: {statePAR.id}</p>
                     </div>
                     <Link to="/userprofile">
                         <Button disabled={(stateLR.userId == statePAR.id) ? false : true}>
-                            Редактировать
+                            {t('change')}
                         </Button>
                     </Link>
                 </div>

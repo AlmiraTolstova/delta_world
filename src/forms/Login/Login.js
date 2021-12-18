@@ -12,6 +12,7 @@ import {loginIn} from "../../actions/actions";
 import loginReducer from "../../reducers/loginReducer";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 import {CloseCircleOutlined} from "@ant-design/icons";
+import {useTranslation} from "react-i18next";
 
 const LoginForm =()=> {
     const [inputValue, setInputValue] = useState(EMPTY_STRING);
@@ -30,15 +31,15 @@ const LoginForm =()=> {
         console.log(`данные получены: ${userId} ${userFirstName} ${userPhotoURL}`);
     };
 
-    const handleLoginReducerClick=(inputValue)=>{
-    }
+    const handleLoginReducerClick=(inputValue)=>{};
+    const{t}=useTranslation();
         return (
             <ThemeContextConsumer>{
                 (context) =>(
                     <Form className={`login-form ${context.darkTheme && 'login-form_dark'}`}>
                         <Button className="registration__close-btn" shape="circle" icon={<CloseCircleOutlined/>}>
                         </Button>
-                    <h1 className={`login-form__h1 ${context.darkTheme && 'login-form__h1_dark'}`}>Вход</h1>
+                    <h1 className={`login-form__h1 ${context.darkTheme && 'login-form__h1_dark'}`}>{t('login')}</h1>
                     <Form.Item
                         label="ID"
                         name="username"
@@ -53,11 +54,11 @@ const LoginForm =()=> {
                     <div className="login-form__buttons">
                         <Button type="primary" htmlType="submit" onClick={handleLoginClick}>
                             <Link to="/">
-                                Войти
+                                {t('login')}
                             </Link>
                         </Button>
                         <Link className="login-form__btn2" to="/registration">
-                            Ещё нет аккаунта? Зарегистрироваться
+                            {t('loginFormRegistration')}
                         </Link>
                     </div>
                 </Form>)

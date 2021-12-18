@@ -17,8 +17,6 @@ const Users = () => {
     const [loading, setLoading] = useState(EMPTY_STRING);
     const [error, setError] = useState(EMPTY_STRING);
     const state = useSelector(state=>state.usersReducer);
-    // const error = state.us;
-    // const loading = state.user
 
     console.log(state)
     const dispatch = useDispatch();
@@ -52,12 +50,3 @@ const Users = () => {
 
 export default Users;
 
-
-// export default connect(
-//     (state)=>({
-//         users:state.usersList
-//     }),
-//     (dispatch)=>({
-//         loadAllUsers:bindActionCreators(loadUsers, dispatch)
-//     })
-// )(Users)

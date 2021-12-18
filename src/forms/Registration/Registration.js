@@ -11,6 +11,7 @@ import {Link} from "react-router-dom";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 import {CloseCircleOutlined} from "@ant-design/icons";
 import {HIDE_POST_WITH_COMMENTS} from "../../constants/actions/actions_const";
+import {useTranslation} from "react-i18next";
 
 const RegistrationForm = () => {
     const dateFormat = 'YYYY/MM/DD';
@@ -27,14 +28,6 @@ const RegistrationForm = () => {
             .format(weekFormat)}`;
 
     const {Option} = Select;
-    // const prefixSelector = (
-    //     <Form.Item>
-    //         <Select style={{width: 70,}}>
-    //             <Option value="7">+7</Option>
-    //             <Option value="8">8</Option>
-    //         </Select>
-    //     </Form.Item>
-    // );
 
     const dispatch = useDispatch();
 
@@ -58,6 +51,8 @@ const RegistrationForm = () => {
         dispatch(createUser(firstName, secondName, male, dateOfBirth, email, phone));
     }
 
+    const{t}=useTranslation();
+
     return (
         <ThemeContextConsumer>{
             (context) => (
@@ -65,10 +60,10 @@ const RegistrationForm = () => {
                     <Button className="registration__close-btn" shape="circle" icon={<CloseCircleOutlined/>}>
                     </Button>
                     <Form>
-                        <h1 className={` ${context.darkTheme && 'registration-text_dark'}`}>Регистрация</h1>
+                        <h1 className={` ${context.darkTheme && 'registration-text_dark'}`}>{t('registration')}</h1>
                         <Form.Item
                             name={['user', 'name']}
-                            label="Имя:"
+                            label={t('name')}
                             rules={[
                                 {
                                     required: true,
@@ -77,16 +72,16 @@ const RegistrationForm = () => {
                             <Input className={` ${context.darkTheme && 'registration-text_dark'}`} value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
                         </Form.Item>
                         <Form.Item>
-                            <p className={` ${context.darkTheme && 'registration-text_dark'}`}>Пол:</p>
+                            <p className={` ${context.darkTheme && 'registration-text_dark'}`}>{t('gender')}:</p>
                             <Radio.Group value={male} onChange={(e) => {
                                 e.target.value == '1' ? setMale("male") : setMale("female");
                             }}>
-                                <Radio className={` ${context.darkTheme && 'registration-text_dark'}`} value={1}>Мужской</Radio>
-                                <Radio className={` ${context.darkTheme && 'registration-text_dark'}`} value={2}>Женский</Radio>
+                                <Radio className={` ${context.darkTheme && 'registration-text_dark'}`} value={1}>{t('masculine')}</Radio>
+                                <Radio className={` ${context.darkTheme && 'registration-text_dark'}`} value={2}>{t('female')}</Radio>
                             </Radio.Group>
                         </Form.Item>
                         <Space direction="horizontal" size={12}>
-                            <p className={` ${context.darkTheme && 'registration-text_dark'}`}>Дата рождения:</p>
+                            <p className={` ${context.darkTheme && 'registration-text_dark'}`}>{t('dateOfBirth')}:</p>
                             <DatePicker defaultValue={moment('2015/01/01', dateFormat)} format={dateFormat}/>
                         </Space>,
                         <Form.Item
@@ -103,7 +98,7 @@ const RegistrationForm = () => {
 
                         <Form.Item
                             name="phone"
-                            label="Телефон:"
+                            label={t('phone')}
                             rules={[
                                 {
                                     required: true,
@@ -117,11 +112,11 @@ const RegistrationForm = () => {
                         </Form.Item>
                         <Button type="primary" htmlType="submit" onClick={onRegistrationButtonClick}>
                             <Link to="/">
-                                Зарегистрироваться
+                                {t('registration')}
                             </Link>
                         </Button>
                         <Button className={` ${context.darkTheme && 'registration-text_dark'}`} type="text" htmlType="submit">
-                            Уже есть аккаунт? Войти
+                            {t('registrationFormLogin')}
                         </Button>
                     </Form>
                 </div>)

@@ -41,22 +41,20 @@ app.use((req, res, next) => {
 
 app.route(USER_URL)
     .get((req, res) => {
-        console.log(req.query);
-        console.log("our query: ", DUM_USER_URL);
-        const page=0;
-        const limit=9;
-        fetch(DUM_USER_URL, {
+         console.log(req.query);
+        // console.log("our query: ", DUM_USER_URL);
+        const page=req.query['page'].toString();
+        const limit=req.query['limit'].toString();
+        fetch(`${DUM_USER_URL}?page=${page.toString()}&limit=${limit.toString()}`, {
                     method: METHOD_GET,
                     headers: {
                         'app-id': APP_ID_VALUE,
-                        'page': 0,//page.toString(),
-                        'limit': 9,//limit.toString(),
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
         })
             .then(resp => {
                 resp.json().then(out => {
-                    console.log(out);
+                    // console.log(out);
                     res.status(200).send(JSON.stringify(out));
                 });
                 //res.status(200).send(resp);

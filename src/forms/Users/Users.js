@@ -22,9 +22,9 @@ const Users = () => {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        dispatch(getUsersList(0,9));
+        //dispatch(getUsersList(0,9));
         console.log("тут запрос пользователей от прокси")
-        dispatch(getUsersListFromProxy());
+        dispatch(getUsersListFromProxy(0,9));
     }, [])
 
 

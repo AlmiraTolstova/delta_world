@@ -89,26 +89,25 @@ export const getUsersList = (
 
 //--------------------Запрос пользователей от проки сервера----------------------------
 export const getUsersListFromProxy = (
-
-
+    page,
+    limit
 ) => {
     return async (Dispatch) => {
         console.log("запускаем запрос пользователей от прокси сервера: ", PROXY_USER_URL)
         try{
-            const response = await fetch(`${PROXY_USER_URL}`, {
+            const response = await fetch(`${PROXY_USER_URL}?page=${page.toString()}&limit=${limit.toString()}`, {
                 method: METHOD_GET,
-
+                //
                 headers: new Headers({
                     'content-type': 'application/json'
                 }),
             })
             const resp = await response.json();
             console.log('полученные данные от прокси сервера: ',resp.data);
-            //Dispatch( {type: LOAD_USERS, payload: resp.data})
+            Dispatch( {type: LOAD_USERS, payload: resp.data})
         }
         catch(error){
-            console.log("получили ошибку выполнения запроса пользователей"+error.text);
-            //(Dispatch({type: LOADING_USERS_ERROR, payload:"Произошла какая то ошибка при загрузке пользователей"}))
+            console.log("получили ошибку выполнения запроса пользователей"+error);
         }
     }
 }

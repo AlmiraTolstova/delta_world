@@ -24,7 +24,7 @@ const Users = () => {
     useEffect(()=>{
         dispatch(getUsersList(0,9));
         console.log("тут запрос пользователей от прокси")
-        getUsersListFromProxy();
+        dispatch(getUsersListFromProxy());
     }, [])
 
 

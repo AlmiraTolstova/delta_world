@@ -1,19 +1,35 @@
 const ws = require('ws');
 const fs = require('fs')
+const fetch = require('node-fetch')
+
 const express = require('express')
+
+
 const app = express()
 
+const APP_ID_VALUE = '618684006232a15b6abb4385';
+const METHOD_GET = 'GET';
+const METHOD_POST = 'POST';
+const METHOD_PUT = 'PUT';
+const APP_ID_FIELD = 'app-id';
+const PAGE_FIELD = 'page';
+const LIMIT_FIELD = 'limit';
+const DUM_BASE_URL = 'https://dummyapi.io/data/v1/';
+const DUM_POST_URL = `${DUM_BASE_URL}post`;
+const DUM_USER_URL = `${DUM_BASE_URL}user`;
 
 const host = '127.0.0.1'
-const port = 3000
+const port = 4000
 
 
 const POST_URL = `/post`;
 const USER_URL = `/user`;
 
+
+
 app.use(express.json()) // Необходимо для парсинга body в соответствуюзих запросах в формате JSON
 app.use((req, res, next) => {
-    res.type('text/plain') // Установка заголовка type
+    res.type('application/json') // Установка заголовка type
         .set( // Установка заголовка
             'Access-Control-Allow-Origin', // Заголовок
             '*' // Значение заголовка
@@ -25,13 +41,48 @@ app.use((req, res, next) => {
 
 app.route(USER_URL)
     .get((req, res) => {
-        console.log(req);
-        res
-            // .sendStatus(405) // Отправить пустой ответ с указанным статусом
-            .status(200) // Установка статуса
-            .json('GET echo') // Отправить ответ с указанными параметрами.
-        //.redirect('localhost:2000') // Перенаправить на url (отправить 302-й статус)
-        //.json({ key: 'value'}) // Отправить объект (производится преобразование в JSON)
+        console.log(req.query);
+        console.log("our query: ", DUM_USER_URL);
+        const page=0;
+        const limit=9;
+        fetch(DUM_USER_URL, {
+                    method: METHOD_GET,
+                    headers: {
+                        'app-id': APP_ID_VALUE,
+                        'page': 0,//page.toString(),
+                        'limit': 9,//limit.toString(),
+                        'Content-Type': 'application/json'
+                    },
+        })
+            .then(resp => {
+                resp.json().then(out => {
+                    console.log(out);
+                    res.status(200).send(JSON.stringify(out));
+                });
+                //res.status(200).send(resp);
+            })
+            .catch(error => res.status(500).send('third-party api error'))
+
+
+        // try{
+        //     let page = 0;
+        //     let limit = 9;
+        //     const response = await fetch(`${USER_URL}?page=${page.toString()}&limit=${limit.toString()}`, {
+        //         method: METHOD_GET,
+        //         headers: new Headers({
+        //             [APP_ID_FIELD]: APP_ID_VALUE,
+        //             [PAGE_FIELD]: page.toString(),
+        //             [LIMIT_FIELD]: limit.toString(),
+        //         }),
+        //     })
+        //     const resp = await response.json();
+        //     console.log(resp.data);
+        //     res.json(resp)//({data : 'GET echo'}) // Отправить ответ с указанными параметрами.
+        // }
+        // catch(error){
+        //     console.log("получили ошибку выполнения запроса пользователей "+error);
+        // }
+        //res.json({data : 'GET echo'});
     })
     .post((req, res) => {
         res.status(200)
@@ -50,7 +101,12 @@ app.route(USER_URL)
             .end()
     })
 
-app.listen(port, host, () => console.log(`Server started at http://${host}:${port}`))
+// app.all('/allMethod', (req, res) => {
+//     res.status(200)
+//         .send('all method echo')
+// })
+
+app.listen(port, host, () => console.log(`Server started at http://${host}:${port}`));
 
 
 

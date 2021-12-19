@@ -1,5 +1,5 @@
 const BASE_URL = 'https://dummyapi.io/data/v1/';
-const PROXY_URL = 'https://127.0.0.1:3000/'
+const PROXY_URL = 'http://127.0.0.1:4000/'
 
 export const COMMENT_URL = `${BASE_URL}comment`;
 

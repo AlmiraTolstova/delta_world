@@ -89,19 +89,17 @@ export const getUsersList = (
 
 //--------------------Запрос пользователей от проки сервера----------------------------
 export const getUsersListFromProxy = (
-    page,
-    limit
+
 
 ) => {
     return async (Dispatch) => {
         console.log("запускаем запрос пользователей от прокси сервера: ", PROXY_USER_URL)
         try{
-            const response = await fetch(`${PROXY_USER_URL}?page=${page.toString()}&limit=${limit.toString()}`, {
+            const response = await fetch(`${PROXY_USER_URL}`, {
                 method: METHOD_GET,
+
                 headers: new Headers({
-                    [APP_ID_FIELD]: APP_ID_VALUE,
-                    [PAGE_FIELD]: page.toString(),
-                    [LIMIT_FIELD]: limit.toString(),
+                    'content-type': 'application/json'
                 }),
             })
             const resp = await response.json();

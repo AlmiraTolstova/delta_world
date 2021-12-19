@@ -39,9 +39,31 @@ app.use((req, res, next) => {
     next() // Если не вызвпать то запрос не пройдёт дальше
 })
 
-app.route(USER_URL)
+app.route(`${USER_URL}/id`)
     .get((req, res) => {
-         console.log(req.query);
+        console.log("getUsersByIDFromProxy",req.query);
+        const id=req.query['id'].toString();
+        fetch(`${DUM_USER_URL}/${id}`, {
+            method: METHOD_GET,
+            headers: {
+                'app-id': APP_ID_VALUE,
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(resp => {
+                resp.json().then(out => {
+                    // console.log(out);
+                    res.status(200).send(JSON.stringify(out));
+                });
+                //res.status(200).send(resp);
+            })
+            .catch(error => res.status(500).send('third-party api error'))
+
+    })
+
+app.route(USER_URL)//getUsersListFromProxy
+    .get((req, res) => {
+         console.log('getUsersListFromProxy',req.query);
         // console.log("our query: ", DUM_USER_URL);
         const page=req.query['page'].toString();
         const limit=req.query['limit'].toString();
@@ -61,48 +83,27 @@ app.route(USER_URL)
             })
             .catch(error => res.status(500).send('third-party api error'))
 
+    })//getUsersByIDFromProxy
 
-        // try{
-        //     let page = 0;
-        //     let limit = 9;
-        //     const response = await fetch(`${USER_URL}?page=${page.toString()}&limit=${limit.toString()}`, {
-        //         method: METHOD_GET,
-        //         headers: new Headers({
-        //             [APP_ID_FIELD]: APP_ID_VALUE,
-        //             [PAGE_FIELD]: page.toString(),
-        //             [LIMIT_FIELD]: limit.toString(),
-        //         }),
-        //     })
-        //     const resp = await response.json();
-        //     console.log(resp.data);
-        //     res.json(resp)//({data : 'GET echo'}) // Отправить ответ с указанными параметрами.
-        // }
-        // catch(error){
-        //     console.log("получили ошибку выполнения запроса пользователей "+error);
-        // }
-        //res.json({data : 'GET echo'});
-    })
-    .post((req, res) => {
-        res.status(200)
-            .send('POST echo')
-    })
-    .put((req, res) => {
-        res.status(200)
-            .send('PUT echo')
-    })
-    .delete((req, res) => {
-        res.status(200)
-            .send('DELETE echo')
-    })
-    .options((req, res) => {
-        res.status(200)
-            .end()
-    })
+    //
+    //
+    // .post((req, res) => {
+    //     res.status(200)
+    //         .send('POST echo')
+    // })
+    // .put((req, res) => {
+    //     res.status(200)
+    //         .send('PUT echo')
+    // })
+    // .delete((req, res) => {
+    //     res.status(200)
+    //         .send('DELETE echo')
+    // })
+    // .options((req, res) => {
+    //     res.status(200)
+    //         .end()
+    // })
 
-// app.all('/allMethod', (req, res) => {
-//     res.status(200)
-//         .send('all method echo')
-// })
 
 app.listen(port, host, () => console.log(`Server started at http://${host}:${port}`));
 

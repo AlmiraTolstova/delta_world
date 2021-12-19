@@ -5,7 +5,7 @@ import './Login.css'
 import {Form, Input, Button, Checkbox} from 'antd';
 import {Link} from "react-router-dom";
 import {EMPTY_STRING} from "../../constants/api/common";
-import {getUsersByID} from "../../api/dumMyApi";
+import {getUsersByID, getUsersByIDFromProxy} from "../../api/dumMyApi";
 import {connect, useDispatch, useSelector} from "react-redux";
 import {bindActionCreators} from "redux";
 import {loginIn} from "../../actions/actions";
@@ -24,7 +24,9 @@ const LoginForm =()=> {
 
     const handleLoginClick =() =>{
         console.log(state);
-        dispatch(getUsersByID(inputValue.toString()));
+        //dispatch(getUsersByID(inputValue.toString()));
+        dispatch(getUsersByIDFromProxy(inputValue.toString()));
+
         setUserId(state.userId);
         setUserFirstName(state.userFirstName);
         setUserPhotoURL(state.userPhotoURL);

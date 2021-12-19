@@ -53,7 +53,7 @@ export const getPostsList = (
 //         .catch(errorCallback);
 // };
 
-export const getUsersList = (
+export const getUsersList = (   //заменена на запрос от прокси
     page,
     limit
 
@@ -87,7 +87,7 @@ export const getUsersList = (
 
 }
 
-//--------------------Запрос пользователей от проки сервера----------------------------
+//--------------------Запросы от проки сервера----------------------------------------
 export const getUsersListFromProxy = (
     page,
     limit
@@ -111,9 +111,33 @@ export const getUsersListFromProxy = (
         }
     }
 }
+
+export const getUsersByIDFromProxy = (
+    id,
+) => {
+
+    return async (Dispatch) => {
+        console.log("запрос проверки данных юзера от прокси", `${PROXY_USER_URL}/id?id=${id}`);
+        try {
+            const response = await fetch(`${PROXY_USER_URL}/id?id=${id}`, {
+                method: METHOD_GET,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE
+                })
+            })
+            const resp = await response.json();
+            console.log(resp);
+
+            Dispatch( {type: LOGIN_IN, payload: resp})
+        } catch (error){
+            console.log("получили ошибку выполнения запроса проверки пользователя от прокси"+error.text);
+            (Dispatch({type: LOGIN_IN_ERROR, payload:"Произошла какая то ошибка при проверке пользователя от прокси"}))
+        }
+    }
+};
 //-------------------------------------------------------------------------------------
 
-export const getUsersByID = (
+export const getUsersByID = (//заменена на функцию от прокси
     id,
 ) => {
 

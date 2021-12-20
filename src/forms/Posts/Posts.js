@@ -1,9 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import Post from "../../components/Post/Post";
 import {EMPTY_STRING} from '../../constants/api/common';
-import {getCommentsByPostID, getPostsList} from "../../api/dumMyApi";
+import {
+    getCommentsByPostID,
+    getCommentsByPostIDFromProxy,
+    getPostsList,
+    getPostsListFromProxy
+} from "../../api/dumMyApi";
 import "./Posts.css"
-import {Row} from "antd";
+import {Pagination, Row} from "antd";
 import OpenPost from "../OpenPost/OpenPost";
 import {useDispatch, useSelector} from "react-redux";
 import openPostReducer from "../../reducers/openPostReducer";
@@ -25,7 +30,8 @@ const Posts = () => {
     const [imgUrl, setImgUrl] = useState(EMPTY_STRING);
 
     const loadPosts = (page, limit) => {
-        getPostsList(
+        //getPostsList(
+        getPostsListFromProxy(
             page,
             limit,
             (resp) => {
@@ -40,7 +46,9 @@ const Posts = () => {
 
     const onHandleClickByPost = (postId, index) => {
         setIndex(index);
-        dispatch(getCommentsByPostID(postId, 0, 5));
+        //dispatch(getCommentsByPostID(postId, 0, 5));
+        dispatch(getCommentsByPostIDFromProxy(postId, 0, 5));
+
         dispatch({type: SHOW_POST_WITH_COMMENTS, payload: true})
         console.log("вывод открытия поста ", postId)
         setPostText(posts[index].text);
@@ -51,43 +59,63 @@ const Posts = () => {
         setImgUrl(posts[index].image);
     }
 
-    useEffect(() => {
-        loadPosts(0, 6);
+    // useEffect(() => {
+    //     loadPosts(0, 6);
+    //
+    // }, [])
 
-    }, [])
+    const [newCurrentPage, setNewCurrentPage] = useState(1);
+
+    useEffect(() => {
+        loadPosts(newCurrentPage - 1, 8);
+
+    }, [newCurrentPage])
+
+    const onChangePainator = (currentPage, sizeBatch) => {
+        //console.log(`current: ${currentPage},size:${sizeBatch}`)
+        setNewCurrentPage(currentPage);
+    }
 
     return (
         <ThemeContextConsumer>{
-            (context) => (
-                <div className={`posts-form ${context.darkTheme && 'posts-form_dark'}`}>
-                    {posts.length != 0
-                        ? posts.map((elem, index) => (
-                            <div onClick={() => {
-                                onHandleClickByPost(elem.id, index)
-                            }}>
-                                <Post
-                                    key={index}
-                                    name={elem.owner.firstName}
-                                    lastName={elem.owner.lastName}
-                                    text={elem.text}
-                                    imgUrl={elem.image}
-                                    datePost={elem.publishDate}
-                                    avatarUrl={elem.owner.picture}
-                                    title={elem.owner.title}
-                                    postId={elem.id}
-                                    userId={elem.owner.id}
-                                />
-                            </div>
-                        )) : "Идет загрузка"}
-                    <OpenPost
-                        title={postTitle}
-                        firstName={firstName}
-                        lastName={lastName}
-                        dataPost={dataPost}
-                        imgUrl={imgUrl}
-                        textPost={postText}
-                    />
-                </div>)}
+                (context) => (
+                    <div className={`posts-form ${context.darkTheme && 'posts-form_dark'}`}>
+                        <div className='posts-forms__container'>
+                            {posts.length != 0
+                                ? posts.map((elem, index) => (
+                                    <div onClick={() => {
+                                        onHandleClickByPost(elem.id, index)
+                                    }}>
+                                        <Post
+                                            key={index}
+                                            name={elem.owner.firstName}
+                                            lastName={elem.owner.lastName}
+                                            text={elem.text}
+                                            imgUrl={elem.image}
+                                            datePost={elem.publishDate}
+                                            avatarUrl={elem.owner.picture}
+                                            title={elem.owner.title}
+                                            postId={elem.id}
+                                            userId={elem.owner.id}
+                                        />
+                                    </div>
+                                )) : "Идет загрузка"}
+                            <OpenPost
+                                title={postTitle}
+                                firstName={firstName}
+                                lastName={lastName}
+                                dataPost={dataPost}
+                                imgUrl={imgUrl}
+                                textPost={postText}
+                            />
+                        </div>
+                        <Pagination className="posts-pagination"
+                                    total={50}
+                                    pageSize={5}
+                                    current={newCurrentPage}
+                                    onChange={onChangePainator}
+                        />
+                    </div>)}
         </ThemeContextConsumer>
     )
 }

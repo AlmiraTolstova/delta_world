@@ -103,3 +103,10 @@ body, #root {
 .footer_dark{
   background-color: #565656;
 }
+
+@media (max-width:320px) {
+  .footer {
+    background-color: darkcyan;
+    flex: 0 0 auto;
+  }
+}

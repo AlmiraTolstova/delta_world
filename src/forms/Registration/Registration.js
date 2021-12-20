@@ -6,7 +6,7 @@ import {Form, Input, InputNumber, Button, Radio, DatePicker, Space, Select} from
 import moment from 'moment';
 import {useDispatch, useSelector} from "react-redux";
 import {EMPTY_STRING} from "../../constants/api/common";
-import {createUser} from "../../api/dumMyApi";
+import {createUser, createUserToProxy} from "../../api/dumMyApi";
 import {Link} from "react-router-dom";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 import {CloseCircleOutlined} from "@ant-design/icons";
@@ -48,7 +48,8 @@ const RegistrationForm = () => {
             setFirstName(namming);
             setSecondName('notLastName');
         }
-        dispatch(createUser(firstName, secondName, male, dateOfBirth, email, phone));
+        //dispatch(createUser(firstName, secondName, male, dateOfBirth, email, phone));
+        dispatch(createUserToProxy(firstName, secondName, male, dateOfBirth, email, phone));
     }
 
     const{t}=useTranslation();

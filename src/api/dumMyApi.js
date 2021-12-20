@@ -1,5 +1,13 @@
 import {
-    APP_ID_FIELD, APP_ID_VALUE, COMMENT_URL, LIMIT_FIELD, PAGE_FIELD, POST_URL, USER_URL,
+    APP_ID_FIELD,
+    APP_ID_VALUE,
+    COMMENT_URL,
+    LIMIT_FIELD,
+    PAGE_FIELD,
+    POST_URL,
+    PROXY_POST_URL,
+    PROXY_USER_URL,
+    USER_URL,
 } from '../constants/api/dumMyApi';
 import {METHOD_GET, METHOD_POST, METHOD_PUT} from '../constants/api/common';
 import {Dispatch} from "redux";
@@ -13,7 +21,10 @@ import {
 } from "../constants/actions/actions_const";
 import {loginIn} from "../actions/actions";
 
-export const getPostsList = (
+
+
+
+export const getPostsList = (   //заменена на прокси
     page,
     limit,
     callback,
@@ -50,7 +61,7 @@ export const getPostsList = (
 //         .catch(errorCallback);
 // };
 
-export const getUsersList = (
+export const getUsersList = (   //заменена на запрос от прокси
     page,
     limit
 
@@ -84,7 +95,214 @@ export const getUsersList = (
 
 }
 
-export const getUsersByID = (
+//--------------------Запросы от прокcи сервера----------------------------------------
+export const getPostsListFromProxy = (
+    page,
+    limit,
+    callback,
+    errorCallback,
+) => {
+    console.log("запускаем запрос списка постов от прокси сервера: ", `${PROXY_POST_URL}/postlist?page=${page.toString()}&limit=${limit.toString()}`);
+    fetch(`${PROXY_POST_URL}/postlist?page=${page.toString()}&limit=${limit.toString()}`, {
+        method: METHOD_GET,
+        headers: new Headers({
+            [APP_ID_FIELD]: APP_ID_VALUE,
+            [PAGE_FIELD]: '0',//page.toString(),
+            [LIMIT_FIELD]: '6',//limit.toString(),
+        }),
+    }).then((response) => response.json())
+        .then((response) => {callback(response.data);
+            console.log("получен список постов от прокси ",response.data);})
+        .catch(errorCallback);
+};
+
+export const getUsersListFromProxy = (
+    page,
+    limit
+) => {
+    return async (Dispatch) => {
+        console.log("запускаем запрос пользователей от прокси сервера: ", PROXY_USER_URL)
+        try{
+            const response = await fetch(`${PROXY_USER_URL}?page=${page.toString()}&limit=${limit.toString()}`, {
+                method: METHOD_GET,
+                //
+                headers: new Headers({
+                    'content-type': 'application/json'
+                }),
+            })
+            const resp = await response.json();
+            console.log('полученные данные от прокси сервера: ',resp.data);
+            Dispatch( {type: LOAD_USERS, payload: resp.data})
+        }
+        catch(error){
+            console.log("получили ошибку выполнения запроса пользователей"+error);
+        }
+    }
+}
+
+export const getUsersByIDFromProxy = (
+    id,
+) => {
+
+    return async (Dispatch) => {
+        console.log("запрос проверки данных юзера от прокси", `${PROXY_USER_URL}/id?id=${id}`);
+        try {
+            const response = await fetch(`${PROXY_USER_URL}/id?id=${id}`, {
+                method: METHOD_GET,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE
+                })
+            })
+            const resp = await response.json();
+            console.log(resp);
+
+            Dispatch( {type: LOGIN_IN, payload: resp})
+        } catch (error){
+            console.log("получили ошибку выполнения запроса проверки пользователя от прокси"+error.text);
+            (Dispatch({type: LOGIN_IN_ERROR, payload:"Произошла какая то ошибка при проверке пользователя от прокси"}))
+        }
+    }
+};
+
+export const getUsersFullInfoByIDFromProxy = (
+    id,
+) => {
+
+    return async (Dispatch) => {
+        console.log("запрос проверки данных юзера от прокси");
+        try {
+            const response = await fetch(`${PROXY_USER_URL}/finfo?id=${id}`, {
+                method: METHOD_GET,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE
+                })
+            })
+            const resp = await response.json();
+            console.log(resp);
+
+            Dispatch( {type: GET_USER_FULL_INFO, payload: resp})
+        } catch (error){
+            console.log("получили ошибку выполнения запроса проверки пользователя от прокси"+error.text);
+        }
+    }
+};
+
+export const getPostsByUserIdFromProxy = (
+    id,
+    page,
+    limit
+) => {
+
+    return async (Dispatch) => {
+        console.log("запрос списка постов по id юзера от прокси",`${PROXY_USER_URL}/post?id=${id}&page=${page.toString()}&limit=${limit.toString()}`);
+        try {
+            const response = await fetch(`${PROXY_USER_URL}/post?id=${id}&page=${page.toString()}&limit=${limit.toString()}`, {
+                method: METHOD_GET,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE
+                })
+            })
+            const resp = await response.json();
+            console.log(resp);
+
+            Dispatch( {type: GET_POSTS_BY_USER_ID, payload: resp.data})
+        } catch (error){
+            console.log("получили ошибку выполнения запроса постов пользователя от прокси"+error.text);
+        }
+    }
+};
+
+export const getCommentsByPostIDFromProxy = (
+    id,
+    page,
+    limit
+) => {
+
+    return async (Dispatch) => {
+        console.log("запрос списка комментов по id поста от прокси", id);//?page=${page.toString()}&limit=${limit.toString()}
+        try {
+            const response = await fetch(`${PROXY_POST_URL}/comment?id=${id}&page=${page.toString()}&limit=${limit.toString()}`, {
+                method: METHOD_GET,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE
+                })
+            })
+            const resp = await response.json();
+            console.log("получили список комментариев от прокси", resp.data)
+            Dispatch( {type: GET_LIST_COMMENTS_BY_POST_ID, payload: resp.data})
+        } catch (error){
+            console.log("получили ошибку выполнения запроса постов пользователя"+error.text);
+        }
+    }
+};
+
+
+export const createUserToProxy = (
+    firstName,
+    lastName,
+    male,
+    dateOfBirth,
+    email,
+    phone
+)=>{
+    return async (Dispatch) => {
+        console.log("запрос создания юзера");
+        console.log(JSON.stringify({'firstName':firstName,'lastName':lastName,'email':email}));
+        try {
+            const response = await fetch(`${PROXY_USER_URL}/create?firstName=${firstName}&lastName=${lastName}&email=${email}&gender=${male}&dateOfBirth=${dateOfBirth}&phone=${phone}`, {
+                method: METHOD_POST,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE,
+                    'Content-Type': 'application/json;charset=utf-8'
+                }),
+                //приходят данные вида: firstName, secondName, male, dateOfBirth, email, phone
+                //body: JSON.stringify({'firstName':firstName,'lastName':lastName,'email':email, 'gender':male, 'dateOfBirth':dateOfBirth, 'phone':phone})
+            })
+            const resp = await response.json();
+            console.log(resp);
+
+            Dispatch( {type: CREATE_USER, payload: resp})
+        } catch (error){
+            console.log("получили ошибку выполнения запроса создания нового пользователя");
+            (Dispatch({type: CREATE_USER_ERROR, payload:"Произошла ошибка выполнения запроса создания нового пользователя"}))
+        }
+    }
+}
+
+export const updateUserToProxy = (
+    id,
+    firstName,
+    lastName,
+    dateOfBirth,
+    phone
+)=>{
+    return async (Dispatch) => {
+        console.log("запрос обновления юзера");
+        console.log(JSON.stringify({'firstName':firstName,'lastName':lastName}));
+        try {
+            const response = await fetch(`${PROXY_USER_URL}/update?id=${id}&firstName=${firstName}&lastName=${lastName}&dateOfBirth=${dateOfBirth}&phone=${phone}`, {
+                method: METHOD_PUT,
+                headers: new Headers({
+                    [APP_ID_FIELD]: APP_ID_VALUE,
+                    'Content-Type': 'application/json;charset=utf-8'
+                }),
+                //приходят данные вида: firstName, secondName, male, dateOfBirth, email, phone
+                body: JSON.stringify({'firstName':firstName,'lastName':lastName, 'dateOfBirth':dateOfBirth, 'phone':phone})
+            })
+            const resp = await response.json();
+            console.log(resp);
+
+            Dispatch( {type: CREATE_USER, payload: resp})
+            Dispatch(getUsersFullInfoByID(id));
+        } catch (error){
+            console.log("получили ошибку выполнения запроса обновления пользователя");
+
+        }
+    }
+}
+//-------------------------------------------------------------------------------------
+
+export const getUsersByID = (//заменена на функцию от прокси
     id,
 ) => {
 
@@ -109,7 +327,7 @@ export const getUsersByID = (
 };
 
 
-export const getUsersFullInfoByID = (
+export const getUsersFullInfoByID = (   //заменена на от прокси
     id,
 ) => {
 
@@ -132,7 +350,7 @@ export const getUsersFullInfoByID = (
     }
 };
 
-export const getPostsByUserId = (
+export const getPostsByUserId = (   //заменена на прокси
     id,
     page,
     limit
@@ -157,7 +375,7 @@ export const getPostsByUserId = (
     }
 };
 
-export const createUser = (
+export const createUser = ( //заменена на прокси
         firstName,
         lastName,
         male,
@@ -189,7 +407,7 @@ export const createUser = (
     }
 }
 
-export const updateUser = (
+export const updateUser = ( //замена на прокси
     id,
     firstName,
     lastName,
@@ -221,7 +439,7 @@ export const updateUser = (
     }
 }
 
-export const getCommentsByPostID = (
+export const getCommentsByPostID = (    //заменена на прокси
     id,
     page,
     limit

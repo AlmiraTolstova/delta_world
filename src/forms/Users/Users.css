@@ -1,11 +1,29 @@
-.user-form{
+/*.user-form{*/
+/*    max-width: 2000px;*/
+/*    display: flex;*/
+/*    flex-flow: wrap;*/
+/*    flex-direction: row;*/
+/*    flex-wrap: wrap;*/
+/*    align-content: flex-start;*/
+/*    margin-top: 2rem;*/
+/*    margin-left: 3rem;*/
+/*    margin-right: 3rem;*/
+/*}*/
+
+.users{
+    margin: auto;
+}
+.users-form{
     max-width: 2000px;
     display: flex;
     flex-flow: wrap;
     flex-direction: row;
-    flex-wrap: wrap;
-    align-content: flex-start;
     margin-top: 2rem;
     margin-left: 3rem;
     margin-right: 3rem;
+}
+.users-pagination{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
 }

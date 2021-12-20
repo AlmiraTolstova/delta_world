@@ -7,7 +7,13 @@ import logo from './logo.svg'
 import {Switch, Route, Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import './Menu.css'
-import {getPostsByUserId, getUsersFullInfoByID, getUsersList} from "../../api/dumMyApi";
+import {
+    getPostsByUserId, getPostsByUserIdFromProxy,
+    getUsersFullInfoByID,
+    getUsersFullInfoByIDFromProxy,
+    getUsersList,
+    getUsersListFromProxy
+} from "../../api/dumMyApi";
 import {loginOut} from "../../actions/actions";
 import {GET_USER_FULL_INFO, SET_NEED_USER_ID} from "../../constants/actions/actions_const";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
@@ -26,8 +32,8 @@ const NewMenu = ()=> {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        dispatch(getUsersList(0,9, ));
-
+        //dispatch(getUsersList(0,9, ));
+        dispatch(getUsersListFromProxy(0,9));
     }, [])
 
     const onExitButtonClick=()=>{
@@ -36,8 +42,12 @@ const NewMenu = ()=> {
 
     const onSetNeedUserInfoId=()=>{
         console.log("запрос фул инфо по пользователю")
-        dispatch(getUsersFullInfoByID(state.userId));
-        dispatch(getPostsByUserId(state.userId, 0, 5));
+        //dispatch(getUsersFullInfoByID(state.userId));
+        dispatch(getUsersFullInfoByIDFromProxy(state.userId));
+
+        //dispatch(getPostsByUserId(state.userId, 0, 5));
+        dispatch(getPostsByUserIdFromProxy(state.userId, 0, 5));
+
     }
 
     const{t}=useTranslation();

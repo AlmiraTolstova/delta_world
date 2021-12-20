@@ -1,4 +1,20 @@
+/*.posts-form{*/
+/*    max-width: 2000px;*/
+/*    display: flex;*/
+/*    !*justify-content: space-between;*!*/
+/*    flex-flow: wrap;*/
+/*    flex-direction: row;*/
+/*    flex-wrap: wrap;*/
+/*    align-content: flex-start;*/
+/*    margin-top: 3rem;*/
+/*    margin-left: 3rem;*/
+/*    margin-right: 3rem;*/
+/*}*/
+
 .posts-form{
+    margin: auto;
+}
+.posts-forms__container{
     max-width: 2000px;
     display: flex;
     /*justify-content: space-between;*/
@@ -9,4 +25,9 @@
     margin-top: 3rem;
     margin-left: 3rem;
     margin-right: 3rem;
+}
+.posts-pagination{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
 }

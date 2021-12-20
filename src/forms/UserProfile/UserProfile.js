@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import {Link} from "react-router-dom";
 import {EMPTY_STRING} from "../../constants/api/common";
 import {useDispatch, useSelector} from "react-redux";
-import {updateUser} from "../../api/dumMyApi";
+import {updateUser, updateUserToProxy} from "../../api/dumMyApi";
 import loginReducer from "../../reducers/loginReducer";
 import "./UserProfilie.css"
 import {ThemeContextConsumer} from "../../context/ThemeContext";
@@ -44,7 +44,9 @@ const UserProfile = () => {
             setSecondName('notLastName');
         }
         console.log(statePAR.id, firstName, SecondName, dateOfBirth, phone)
-        dispatch(updateUser(statePAR.id, firstName, SecondName, dateOfBirth, phone));
+        //dispatch(updateUser(statePAR.id, firstName, SecondName, dateOfBirth, phone));
+        dispatch(updateUserToProxy(statePAR.id, firstName, SecondName, dateOfBirth, phone));
+
     }
     const{t}=useTranslation();
 

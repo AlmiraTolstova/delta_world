@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Post from "../../components/Post/Post";
 import {Button} from "antd";
 import {Link} from "react-router-dom";
-import './PersonalArea.css'
+import './PersonalArea.scss'
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";

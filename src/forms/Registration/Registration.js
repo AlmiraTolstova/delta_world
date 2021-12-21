@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
-import './Registration.css';
+import './Registration.scss';
 import 'antd/dist/antd.css';
 import {Form, Input, InputNumber, Button, Radio, DatePicker, Space, Select} from 'antd';
 import moment from 'moment';

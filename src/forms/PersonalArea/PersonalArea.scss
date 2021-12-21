@@ -1,3 +1,5 @@
+@import '../../color-style';
+
 .personal-area{
     max-width: 100rem;
     display: flex;
@@ -17,12 +19,12 @@
     border-radius: 8px;
     padding: 1rem;
     width: 100%;
-    background-color: #FFFF;
+    background-color:$white;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     margin-bottom: 24px;
 }
 .personal-area__user_dark{
-    background-color: #565656;
+    background-color:$gray-color;
     color: white;
 }
 .personal-area__photo{
@@ -40,13 +42,13 @@
     border-radius: 8px;
     padding: 1rem;
     width: 100%;
-    background-color: #FFFF;
+    background-color:$white;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     margin-bottom: 24px;
     flex-wrap: wrap;
 }
 .personal-area__posts_dark{
-    background-color: #565656;
+    background-color:$gray-color;
 }
 .personal-area__post{
     padding-right: 24px;

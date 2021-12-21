@@ -1,7 +1,7 @@
 import React from 'react';
 import i18next from 'i18next';
 import 'antd/dist/antd.css';
-import './Footer-form.css'
+import './Footer-form.scss'
 import ThemeCheckbox from "../ThemeCheckbox/ThemeCheckbox";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 import {useTranslation} from "react-i18next";

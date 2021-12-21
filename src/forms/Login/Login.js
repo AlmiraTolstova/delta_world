@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import './Login.css'
+import './Login.scss'
 import {Form, Input, Button, Checkbox} from 'antd';
 import {Link} from "react-router-dom";
 import {EMPTY_STRING} from "../../constants/api/common";

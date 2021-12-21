@@ -6,7 +6,7 @@ import {EMPTY_STRING} from "../../constants/api/common";
 import {useDispatch, useSelector} from "react-redux";
 import {updateUser, updateUserToProxy} from "../../api/dumMyApi";
 import loginReducer from "../../reducers/loginReducer";
-import "./UserProfilie.css"
+import "./UserProfilie.scss"
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 import {useTranslation} from "react-i18next";
 

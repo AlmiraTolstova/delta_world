@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './Users.css'
+import './Users.scss'
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import User from "../../components/User/User";
@@ -10,7 +10,7 @@ import Posts from "../Posts/Posts";
 import {connect, useDispatch, useSelector} from 'react-redux';
 import {bindActionCreators, Dispatch} from "redux";
 import {loadUsers, loginIn} from "../../actions/actions";
-import "./Users.css"
+
 import {Pagination} from "antd";
 
 const Users = () => {

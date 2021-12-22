@@ -3,7 +3,7 @@ import {
     Route, Switch, HashRouter, Redirect,
 } from 'react-router-dom';
 import {Layout} from 'antd';
-import './App.css';
+import './App.scss';
 import NewMenu from "./components/Menu/Menu";
 import {UsergroupAddOutlined} from "@ant-design/icons";
 import Footer_form from "./components/Footer-form/Footer-form";

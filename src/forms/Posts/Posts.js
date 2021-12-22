@@ -7,7 +7,7 @@ import {
     getPostsList,
     getPostsListFromProxy
 } from "../../api/dumMyApi";
-import "./Posts.css"
+import "./Posts.scss"
 import {Pagination, Row} from "antd";
 import OpenPost from "../OpenPost/OpenPost";
 import {useDispatch, useSelector} from "react-redux";

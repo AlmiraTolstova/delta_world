@@ -1,6 +1,8 @@
+@import '../../color-style';
+
 .navigator{
     display: flex;
-    background-color: #7C4DFF;
+    background-color:$violet-color;
     justify-content: space-between;
 }
 .navigator_dark{
@@ -10,7 +12,7 @@
     color: darkcyan;
 }
 .navigator-text_dark{
-    color: white;
+    color:$white;
 
 }
 .user-info__photo{

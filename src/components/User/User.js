@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './User.css'
+import './User.scss'
 import {
     getPostsByUserId,
     getPostsByUserIdFromProxy,

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import "./Post.css"
+import "./Post.scss"
 import {Tooltip} from "antd";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 

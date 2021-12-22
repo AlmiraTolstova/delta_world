@@ -6,7 +6,7 @@ import {UsergroupAddOutlined, PictureOutlined, AppstoreOutlined, SettingOutlined
 import logo from './logo.svg'
 import {Switch, Route, Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import './Menu.css'
+import './Menu.scss'
 import {
     getPostsByUserId, getPostsByUserIdFromProxy,
     getUsersFullInfoByID,

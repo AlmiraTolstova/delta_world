@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import "./OpenPost.css"
+import "./OpenPost.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {HIDE_POST_WITH_COMMENTS} from "../../constants/actions/actions_const";
 import commentReducer from "../../reducers/commentReducer";

@@ -71,6 +71,7 @@ const RegistrationForm = () => {
                                 },
                             ]}>
                             <Input className={` ${context.darkTheme && 'registration-text_dark'}`} value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
+                            <Input className={` ${context.darkTheme && 'registration-text_dark'}`} value={secondName} onChange={(e) => setSecondName(e.target.value)}/>
                         </Form.Item>
                         <Form.Item>
                             <p className={` ${context.darkTheme && 'registration-text_dark'}`}>{t('gender')}:</p>

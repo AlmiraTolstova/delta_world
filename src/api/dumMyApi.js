@@ -274,16 +274,17 @@ export const updateUserToProxy = (
     firstName,
     lastName,
     dateOfBirth,
-    phone
+    phone,
+    img
 )=>{
     return async (Dispatch) => {
         console.log("запрос обновления юзера");
         console.log(JSON.stringify({'firstName':firstName,'lastName':lastName}));
         try {
-            const response = await fetch(`${PROXY_USER_URL}/update?id=${id}&firstName=${firstName}&lastName=${lastName}&dateOfBirth=${dateOfBirth}&phone=${phone}`, {
+            const response = await fetch(`${PROXY_USER_URL}/update?id=${id}&firstName=${firstName}&lastName=${lastName}&dateOfBirth=${dateOfBirth}&phone=${phone}&img=${img}`, {
                 method: METHOD_PUT,
                 headers: new Headers({
-                    [APP_ID_FIELD]: APP_ID_VALUE,
+                    //[APP_ID_FIELD]: APP_ID_VALUE,
                     'Content-Type': 'application/json;charset=utf-8'
                 }),
                 //приходят данные вида: firstName, secondName, male, dateOfBirth, email, phone
@@ -293,7 +294,7 @@ export const updateUserToProxy = (
             console.log(resp);
 
             Dispatch( {type: CREATE_USER, payload: resp})
-            Dispatch(getUsersFullInfoByID(id));
+            Dispatch(getUsersFullInfoByIDFromProxy(id));
         } catch (error){
             console.log("получили ошибку выполнения запроса обновления пользователя");
 

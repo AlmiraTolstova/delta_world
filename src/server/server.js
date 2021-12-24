@@ -136,8 +136,8 @@ app.route(`${USER_URL}/finfo`)
 //getPostsByUserIdFromProxy
 app.route(`${USER_URL}/post`)
     .get((req, res) => {
-        console.log("getUsersFullInfoByIDFromProxy",req.query);
-        logger.info("getUsersFullInfoByIDFromProxy",req.query);
+        console.log("getPostsByUserIdFromProxy",req.query);
+        logger.info("getPostsByUserIdFromProxy",req.query);
         const id=req.query['id'].toString();
         const page=req.query['page'].toString();
         const limit=req.query['limit'].toString();
@@ -233,13 +233,14 @@ app.route(`${USER_URL}/update`)//updateUserToProxy
         const lastName=req.query['lastName'].toString();
         const dateOfBirth=req.query['dateOfBirth'].toString();
         const phone=req.query['phone'].toString();
+        const img=req.query['img'].toString();
         fetch(`${DUM_USER_URL}/${id}`, {
             method: METHOD_PUT,
             headers: {
                 'app-id': APP_ID_VALUE,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({'firstName':firstName,'lastName':lastName, 'dateOfBirth':dateOfBirth, 'phone':phone})
+            body: JSON.stringify({'firstName':firstName,'lastName':lastName, 'dateOfBirth':dateOfBirth, 'phone':phone, 'picture':img})
         })
             .then(resp => {
                 resp.json().then(out => {

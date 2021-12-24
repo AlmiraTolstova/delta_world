@@ -9,6 +9,8 @@ import loginReducer from "../../reducers/loginReducer";
 import "./UserProfilie.scss"
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 import {useTranslation} from "react-i18next";
+import onTestNewInfoAboutUser from "../../utils/utils";
+import {UploadOutlined} from "@ant-design/icons";
 
 
 const UserProfile = () => {
@@ -19,6 +21,7 @@ const UserProfile = () => {
     const [phone, setPhone] = useState(EMPTY_STRING);
     const [firstName, setFirstName] = useState(EMPTY_STRING);
     const [SecondName, setSecondName] = useState(EMPTY_STRING);
+    const [file, setFile] = useState(EMPTY_STRING);
 
     const statePAR = useSelector((state => state.personalAreaReducer));
 
@@ -26,28 +29,34 @@ const UserProfile = () => {
 
     useEffect(() => {
         setImg(statePAR.picture);
-        setName(statePAR.firstName + " " + statePAR.lastName);
+        //setName(statePAR.firstName + " " + statePAR.lastName);
         setGender(statePAR.gender == "male" ? "Мужской" : "Женский");
         setDateOfBirth(statePAR.dateOfBirth);
         setPhone(statePAR.phone);
+        setFirstName(statePAR.firstName);
+        setSecondName(statePAR.lastName);
+        console.log(firstName, SecondName);
+        console.log(img);
     }, [])
 
     const onSendNewInfoAboutUser = () => {
 
-        const namming = name;
-        const namePos = namming.indexOf(' ');
-        if (namePos > 0) {
-            setFirstName(namming.slice(0, namePos));
-            setSecondName(namming.slice(namePos, namming.length));
-        } else {
-            setFirstName(namming);
-            setSecondName('notLastName');
-        }
-        console.log(statePAR.id, firstName, SecondName, dateOfBirth, phone)
+
+        console.log(statePAR.id, firstName, SecondName, dateOfBirth, phone, img)
         //dispatch(updateUser(statePAR.id, firstName, SecondName, dateOfBirth, phone));
-        dispatch(updateUserToProxy(statePAR.id, firstName, SecondName, dateOfBirth, phone));
+        dispatch(updateUserToProxy(statePAR.id, firstName, SecondName, dateOfBirth, phone, img));
 
     }
+
+    const onDownloadPicture = ()=>{
+        setImg(file);
+    }
+
+    const onClearPicture = ()=>{
+        setImg('');
+    }
+
+
     const{t}=useTranslation();
 
     return (
@@ -58,12 +67,14 @@ const UserProfile = () => {
                 <div className={`user-profile__container ${context.darkTheme && 'user-profile__container_dark'}`}>
                     <img className="user-profile__img" src={img}/>
                     <div className="user-profile__bts">
-                        <button>{t('userProfileReplace')}</button>
-                        <button> {t('userProfileDelete')}</button>
+                        <button type="file" onClick={onDownloadPicture}>{t('userProfileReplace')}</button>
+                        <input value={file} onChange={(e) => setFile(e.target.value)}/>
+                        <button onClick={onClearPicture}> {t('userProfileDelete')}</button>
                     </div>
                     <Form.Item>
                         <span>{t('name')} : </span>
-                        <input value={name} onChange={(e) => setName(e.target.value)}/>
+                        <input value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
+                        <input value={SecondName} onChange={(e) => setSecondName(e.target.value)}/>
                     </Form.Item>
                     <Form.Item>
                         <span>{t('gender')}: </span>

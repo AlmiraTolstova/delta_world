@@ -15,6 +15,7 @@ import openPostReducer from "../../reducers/openPostReducer";
 import {SHOW_POST_WITH_COMMENTS} from "../../constants/actions/actions_const";
 import {setIn} from "immutable";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
+import dateFormat from "dateformat";
 
 const Posts = () => {
     const [posts, setPosts] = useState(EMPTY_STRING);
@@ -92,7 +93,7 @@ const Posts = () => {
                                             lastName={elem.owner.lastName}
                                             text={elem.text}
                                             imgUrl={elem.image}
-                                            datePost={elem.publishDate}
+                                            datePost={dateFormat(elem.publishDate, "yyyy-mm-dd h:MM:ss")}
                                             avatarUrl={elem.owner.picture}
                                             title={elem.owner.title}
                                             postId={elem.id}
@@ -104,7 +105,7 @@ const Posts = () => {
                                 title={postTitle}
                                 firstName={firstName}
                                 lastName={lastName}
-                                dataPost={dataPost}
+                                dataPost={dateFormat(dataPost, "yyyy-mm-dd h:MM:ss")}
                                 imgUrl={imgUrl}
                                 textPost={postText}
                             />

@@ -2,6 +2,7 @@ const ws = require('ws');
 const fs = require('fs');
 const fetch = require('node-fetch');
 
+
 const express = require('express');
 const logger = require('./logger');
 const {DUM_POST_URL, METHOD_GET, APP_ID_VALUE, DUM_USER_URL, METHOD_POST, METHOD_PUT, POST_URL, USER_URL} = require("./constants/constants");
@@ -38,7 +39,7 @@ app.route(`${POST_URL}/postlist`)
         })
             .then(resp => {
                 resp.json().then(out => {
-                    // console.log(out);
+                    //console.log(out);
                     res.status(200).send(JSON.stringify(out));
                 });
                 //res.status(200).send(resp);
@@ -68,7 +69,7 @@ app.route(`${POST_URL}/comment`)
         })
             .then(resp => {
                 resp.json().then(out => {
-                    // console.log(out);
+                    //console.log(out);
                     res.status(200).send(JSON.stringify(out));
                 });
                 //res.status(200).send(resp);
@@ -150,7 +151,7 @@ app.route(`${USER_URL}/post`)
         })
             .then(resp => {
                 resp.json().then(out => {
-                    // console.log(out);
+                    //console.log(out);
                     res.status(200).send(JSON.stringify(out));
                 });
                 //res.status(200).send(resp);
@@ -256,6 +257,35 @@ app.route(`${USER_URL}/update`)//updateUserToProxy
 
     })
 
+app.route(`${POST_URL}/create`)//createPostToProxy
+    .post((req, res) => {
+        console.log('createPostToProxy',req.query);
+        console.log("our query: ", `${DUM_POST_URL}/create/`);
+        logger.info('createPostToProxy',req.query);
+        const userId=req.query['id'].toString();
+        const text=req.query['text'].toString();
+        const img=req.query['img'].toString();
+        fetch(`${DUM_POST_URL}/create`, {
+            method: METHOD_POST,
+            headers: {
+                'app-id': APP_ID_VALUE,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({'owner':userId,'text':text,'image':img})
+        })
+            .then(resp => {
+                resp.json().then(out => {
+                    console.log("создание поста, ответ от сервера: ",out);
+                    res.status(200).send(JSON.stringify(out));
+                });
+                //res.status(200).send(resp);
+            })
+            .catch(error => {
+                res.status(500).send('third-party api error');
+                logger.info(error, 'third-party api error');
+            })
+
+    })
 
 
 app.listen(port, host, () => console.log(`Server started at http://${host}:${port}`));

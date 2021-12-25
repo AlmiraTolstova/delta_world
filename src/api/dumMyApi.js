@@ -301,6 +301,59 @@ export const updateUserToProxy = (
         }
     }
 }
+
+export const createPostToProxy = (
+    userId,
+    text,
+    img
+)=>{
+    return async (Dispatch) => {
+        console.log("запрос создания поста");
+        console.log(JSON.stringify({'userId':userId,'text':text,'img':img}));
+        try {
+            const response = await fetch(`${PROXY_POST_URL}/create?id=${userId}&text=${text}&img=${img}`, {
+                method: METHOD_POST,
+                headers: new Headers({
+                //    'Content-Type': 'application/json;charset=utf-8'
+                }),
+            })
+            const resp = await response.json();
+            console.log(resp);
+
+
+        } catch (error){
+            console.log("получили ошибку выполнения запроса создания нового поста");
+
+        }
+    }
+}
+
+export const createCommentToProxy = (
+    userId,
+    text,
+    img
+)=>{
+    return async (Dispatch) => {
+        console.log("запрос создания поста");
+        console.log(JSON.stringify({'userId':userId,'text':text,'img':img}));
+        try {
+            const response = await fetch(`${PROXY_POST_URL}/create?id=${userId}&text=${text}&img=${img}`, {
+                method: METHOD_POST,
+                headers: new Headers({
+                    //    'Content-Type': 'application/json;charset=utf-8'
+                }),
+            })
+            const resp = await response.json();
+            console.log(resp);
+
+
+        } catch (error){
+            console.log("получили ошибку выполнения запроса создания нового поста");
+
+        }
+    }
+}
+
 //-------------------------------------------------------------------------------------
 
 export const getUsersByID = (//заменена на функцию от прокси

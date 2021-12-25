@@ -6,6 +6,7 @@ import personalAreaReducer from "./reducers/personalAreaReducer";
 import postsByUserReducer from "./reducers/postsByUserReducer";
 import commentReducer from "./reducers/commentReducer";
 import openPostReducer from "./reducers/openPostReducer";
+import postAdderReducer from "./reducers/postAdderReducer";
 
 
 const store = createStore(
@@ -16,6 +17,7 @@ const store = createStore(
         postsByUserReducer,
         commentReducer,
         openPostReducer,
+        postAdderReducer,
     }), applyMiddleware(thunk)
 
 );

@@ -7,6 +7,8 @@ import Post from "../../components/Post/Post";
 import {Button} from "antd";
 import {CloseCircleOutlined} from "@ant-design/icons";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
+import dateFormat from "dateformat";
+import {EMPTY_STRING} from "../../constants/api/common";
 
 
 const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost}) => {
@@ -15,12 +17,17 @@ const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost}) => {
     const statePR = useSelector((state => state.openPostReducer));
     const dispatch = useDispatch();
     const stateCR = useSelector(state => state.commentReducer);
+    const [textComment, setTextComment] = useState(EMPTY_STRING);
 
     useEffect(() => {
         console.log(stateCR);
         console.log(statePR.showPostComments);
         console.log("хук обновления содержимого");
     }, [stateCR]);
+
+    const onSendComment = ()=>{
+
+    }
 
 
     return (
@@ -40,7 +47,7 @@ const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost}) => {
                             </div>
                             <div className="modal__container">
                                 <div className="modal__title">
-                                    {`${title}  ${firstName} ${lastName} ${dataPost}`}
+                                    {`${title ? title : ''}  ${firstName} ${lastName} ${dataPost}`}
                                 </div>
 
                                 <img className="modal__img" src={imgUrl}/>
@@ -53,13 +60,15 @@ const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost}) => {
                                     ? stateCR.listComments.map((elem, index) => (
                                         <div className="modal__comments">
                                             {elem.message}
-                                            {elem.publishDate}
+                                            {dateFormat(elem.publishDate, "yyyy-mm-dd h:MM:ss")}
                                             {elem.owner.title}
                                             {elem.owner.firstName}
                                             {elem.owner.lastName}
                                             <img className="modal__comments_photo" src={elem.owner.picture}/>
                                         </div>
                                     )) : "Пока никто не оставил комментариев..."}
+                                <input onChange={(e) => setTextComment(e.target.value)}/>
+                                <Button type='primary' onClick={onSendComment}>Отправить</Button>
                             </div>
                         </div>
                     </div>)

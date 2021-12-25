@@ -5,10 +5,13 @@ import {Link} from "react-router-dom";
 import './PersonalArea.scss'
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 import {useTranslation} from "react-i18next";
-import {useEffect, useState} from "react";
-import {getUsersFullInfoByIDFromProxy, getUsersList} from "../../api/dumMyApi";
+import React, {useEffect, useState} from "react";
+import {getCommentsByPostIDFromProxy, getUsersFullInfoByIDFromProxy, getUsersList} from "../../api/dumMyApi";
 import PostAdder from "../../components/PostAdder/PostAdder";
-import {LOGIN_IN, SHOW_POST_ADDER} from "../../constants/actions/actions_const";
+import {LOGIN_IN, SHOW_POST_ADDER, SHOW_POST_WITH_COMMENTS} from "../../constants/actions/actions_const";
+import dateFormat from "dateformat";
+import OpenPost from "../OpenPost/OpenPost";
+import {EMPTY_STRING} from "../../constants/api/common";
 
 const PersonalArea = () => {
     const dispatch = useDispatch();
@@ -22,6 +25,28 @@ const PersonalArea = () => {
 
     const onHandleAddPost = () => {
         dispatch({type: SHOW_POST_ADDER, payload: true})
+    }
+    const [index, setIndex] = useState(0);
+    const [postText, setPostText] = useState(EMPTY_STRING);
+    const [postTitle, setPostTitle] = useState(EMPTY_STRING);
+    const [firstName, setFirstName] = useState(EMPTY_STRING);
+    const [lastName, setLastName] = useState(EMPTY_STRING);
+    const [dataPost, setDataPost] = useState(EMPTY_STRING);
+    const [imgUrl, setImgUrl] = useState(EMPTY_STRING);
+    const [postID, setPostID] = useState(EMPTY_STRING);
+
+    const onHandleClickByPost = (postId, index) => {
+        setIndex(index);
+        dispatch(getCommentsByPostIDFromProxy(postId, 0, 5));
+        dispatch({type: SHOW_POST_WITH_COMMENTS, payload: true})
+        console.log("вывод открытия поста ", postId)
+        setPostText(statePUR.postsList[index].text);
+        setPostTitle(statePUR.postsList[index].owner.title);
+        setFirstName(statePUR.postsList[index].owner.firstName);
+        setLastName(statePUR.postsList[index].owner.lastName);
+        setDataPost(statePUR.postsList[index].publishDate)
+        setImgUrl(statePUR.postsList[index].image);
+        setPostID(postId)
     }
 
     return (
@@ -47,7 +72,9 @@ const PersonalArea = () => {
                     <div className={`personal-area__posts ${context.darkTheme && 'personal-area__posts_dark'}`}>
                         {(statePUR.postsList.length != 0)
                             ? statePUR.postsList.map((elem, index) => (
-                                <div className="personal-area__post">
+                                <div className="personal-area__post" onClick={() => {
+                                    onHandleClickByPost(elem.id, index)
+                                }}>
                                     <Post
                                         avatarUrl = {elem.owner.picture}
                                         text={elem.text}
@@ -57,11 +84,20 @@ const PersonalArea = () => {
                                 </div>
                             )) : "Пока нет постов"
                         }
-                        <Button type='primary' onClick={onHandleAddPost}>Добавить пост</Button>
+                        <Button type='primary' onClick={onHandleAddPost} disabled={stateLR.userId ? false:true}>Добавить пост</Button>
                         <PostAdder
                             Userid={stateLR.userId}>
 
                         </PostAdder>
+                        <OpenPost
+                            title={postTitle}
+                            firstName={firstName}
+                            lastName={lastName}
+                            dataPost={dateFormat(dataPost, "yyyy-mm-dd h:MM:ss")}
+                            imgUrl={imgUrl}
+                            textPost={postText}
+                            postId={postID}
+                        />
                     </div>
                 </div>)
         }

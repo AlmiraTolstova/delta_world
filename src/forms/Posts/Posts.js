@@ -29,6 +29,7 @@ const Posts = () => {
     const [lastName, setLastName] = useState(EMPTY_STRING);
     const [dataPost, setDataPost] = useState(EMPTY_STRING);
     const [imgUrl, setImgUrl] = useState(EMPTY_STRING);
+    const [postID, setPostID] = useState(EMPTY_STRING);
 
     const loadPosts = (page, limit) => {
         //getPostsList(
@@ -58,12 +59,8 @@ const Posts = () => {
         setLastName(posts[index].owner.lastName);
         setDataPost(posts[index].publishDate)
         setImgUrl(posts[index].image);
+        setPostID(postId)
     }
-
-    // useEffect(() => {
-    //     loadPosts(0, 6);
-    //
-    // }, [])
 
     const [newCurrentPage, setNewCurrentPage] = useState(1);
 
@@ -108,6 +105,7 @@ const Posts = () => {
                                 dataPost={dateFormat(dataPost, "yyyy-mm-dd h:MM:ss")}
                                 imgUrl={imgUrl}
                                 textPost={postText}
+                                postId={postID}
                             />
                         </div>
                         <Pagination className="posts-pagination"

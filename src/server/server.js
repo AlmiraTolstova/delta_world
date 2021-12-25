@@ -5,7 +5,10 @@ const fetch = require('node-fetch');
 
 const express = require('express');
 const logger = require('./logger');
-const {DUM_POST_URL, METHOD_GET, APP_ID_VALUE, DUM_USER_URL, METHOD_POST, METHOD_PUT, POST_URL, USER_URL} = require("./constants/constants");
+const {DUM_POST_URL, METHOD_GET, APP_ID_VALUE, DUM_USER_URL, METHOD_POST, METHOD_PUT, POST_URL, USER_URL,
+    DUM_COMMENT_URL, COMMENT_URL
+} = require("./constants/constants");
+
 const app = express();
 const host = '127.0.0.1'
 const port = 4000
@@ -276,6 +279,36 @@ app.route(`${POST_URL}/create`)//createPostToProxy
             .then(resp => {
                 resp.json().then(out => {
                     console.log("создание поста, ответ от сервера: ",out);
+                    res.status(200).send(JSON.stringify(out));
+                });
+                //res.status(200).send(resp);
+            })
+            .catch(error => {
+                res.status(500).send('third-party api error');
+                logger.info(error, 'third-party api error');
+            })
+
+    })
+
+app.route(`${COMMENT_URL}/create`)//createCommentToProxy
+    .post((req, res) => {
+        console.log('createCommentToProxy',req.query);
+        console.log("our query: ", `${DUM_COMMENT_URL}/create/`);
+        logger.info('createCommentToProxy',req.query);
+        const userId=req.query['userId'].toString();
+        const text=req.query['text'].toString();
+        const postId=req.query['postId'].toString();
+        fetch(`${DUM_COMMENT_URL}/create`, {
+            method: METHOD_POST,
+            headers: {
+                'app-id': APP_ID_VALUE,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({'owner':userId,'message':text,'post':postId})
+        })
+            .then(resp => {
+                resp.json().then(out => {
+                    console.log("создание комментарии, ответ от сервера: ",out);
                     res.status(200).send(JSON.stringify(out));
                 });
                 //res.status(200).send(resp);

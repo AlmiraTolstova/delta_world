@@ -9,15 +9,17 @@ import {CloseCircleOutlined} from "@ant-design/icons";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 import dateFormat from "dateformat";
 import {EMPTY_STRING} from "../../constants/api/common";
+import {createCommentToProxy} from "../../api/dumMyApi";
 
 
-const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost}) => {
+const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost, postId}) => {
 
     const [openPostActive, setOpenPost] = useState(false);
     const statePR = useSelector((state => state.openPostReducer));
     const dispatch = useDispatch();
     const stateCR = useSelector(state => state.commentReducer);
     const [textComment, setTextComment] = useState(EMPTY_STRING);
+    const stateLR = useSelector(state => state.loginReducer);
 
     useEffect(() => {
         console.log(stateCR);
@@ -26,9 +28,12 @@ const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost}) => {
     }, [stateCR]);
 
     const onSendComment = ()=>{
-
+        dispatch(createCommentToProxy(stateLR.userId, textComment, postId));
+        setTextComment('');
     }
-
+    const deletePost=()=>{
+        console.log('deletePost work')
+    }
 
     return (
         <ThemeContextConsumer>
@@ -55,6 +60,7 @@ const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost}) => {
                                 <div className="modal__text">
                                     {textPost}
                                 </div>
+                                <Button onClick={deletePost}>Удалить пост</Button>
 
                                 {stateCR.listComments.length != 0
                                     ? stateCR.listComments.map((elem, index) => (
@@ -67,8 +73,8 @@ const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost}) => {
                                             <img className="modal__comments_photo" src={elem.owner.picture}/>
                                         </div>
                                     )) : "Пока никто не оставил комментариев..."}
-                                <input onChange={(e) => setTextComment(e.target.value)}/>
-                                <Button type='primary' onClick={onSendComment}>Отправить</Button>
+                                <input value={textComment} onChange={(e) => setTextComment(e.target.value)}/>
+                                <Button type='primary' onClick={onSendComment} disabled={stateLR.userId ? false:true}>Отправить</Button>
                             </div>
                         </div>
                     </div>)

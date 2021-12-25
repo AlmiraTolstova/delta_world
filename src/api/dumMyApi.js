@@ -4,7 +4,7 @@ import {
     COMMENT_URL,
     LIMIT_FIELD,
     PAGE_FIELD,
-    POST_URL,
+    POST_URL, PROXY_COMMENT_URL,
     PROXY_POST_URL,
     PROXY_USER_URL,
     USER_URL,
@@ -331,24 +331,23 @@ export const createPostToProxy = (
 export const createCommentToProxy = (
     userId,
     text,
-    img
+    postId
 )=>{
     return async (Dispatch) => {
-        console.log("запрос создания поста");
-        console.log(JSON.stringify({'userId':userId,'text':text,'img':img}));
+        console.log("запрос создания комментария");
+        console.log(JSON.stringify({'userId':userId,'text':text,'postId':postId}));
         try {
-            const response = await fetch(`${PROXY_POST_URL}/create?id=${userId}&text=${text}&img=${img}`, {
+            const response = await fetch(`${PROXY_COMMENT_URL}/create?userId=${userId}&text=${text}&postId=${postId}`, {
                 method: METHOD_POST,
                 headers: new Headers({
-                    //    'Content-Type': 'application/json;charset=utf-8'
                 }),
             })
             const resp = await response.json();
             console.log(resp);
-
+            Dispatch(getCommentsByPostIDFromProxy(postId, 0, 5));
 
         } catch (error){
-            console.log("получили ошибку выполнения запроса создания нового поста");
+            console.log("получили ошибку выполнения запроса создания нового комментария");
 
         }
     }

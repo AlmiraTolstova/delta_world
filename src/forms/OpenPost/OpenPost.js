@@ -9,10 +9,10 @@ import {CloseCircleOutlined} from "@ant-design/icons";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
 import dateFormat from "dateformat";
 import {EMPTY_STRING} from "../../constants/api/common";
-import {createCommentToProxy} from "../../api/dumMyApi";
+import {createCommentToProxy, deletePostToProxy} from "../../api/dumMyApi";
 
 
-const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost, postId}) => {
+const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost, postId, ownerId}) => {
 
     const [openPostActive, setOpenPost] = useState(false);
     const statePR = useSelector((state => state.openPostReducer));
@@ -32,6 +32,7 @@ const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost, postI
         setTextComment('');
     }
     const deletePost=()=>{
+        dispatch(deletePostToProxy(postId));
         console.log('deletePost work')
     }
 
@@ -60,8 +61,7 @@ const OpenPost = ({title, firstName, lastName, dataPost, imgUrl, textPost, postI
                                 <div className="modal__text">
                                     {textPost}
                                 </div>
-                                <Button onClick={deletePost}>Удалить пост</Button>
-
+                                <Button onClick={deletePost} hidden={(ownerId==stateLR.userId)?false:true}>Удалить пост</Button>
                                 {stateCR.listComments.length != 0
                                     ? stateCR.listComments.map((elem, index) => (
                                         <div className="modal__comments">

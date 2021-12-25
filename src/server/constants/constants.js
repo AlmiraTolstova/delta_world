@@ -2,6 +2,7 @@
  const METHOD_GET = 'GET';
  const METHOD_POST = 'POST';
  const METHOD_PUT = 'PUT';
+ const METHOD_DELETE = 'DELETE';
  const APP_ID_FIELD = 'app-id';
  const PAGE_FIELD = 'page';
  const LIMIT_FIELD = 'limit';
@@ -12,6 +13,7 @@
  const USER_URL = `/user`;
  const COMMENT_URL = `/comment`;
  const DUM_COMMENT_URL = `${DUM_BASE_URL}comment`;
+
 
  module.exports={
      APP_ID_VALUE:APP_ID_VALUE,
@@ -26,6 +28,7 @@
      POST_URL:POST_URL,
      USER_URL:USER_URL,
      COMMENT_URL:COMMENT_URL,
-     DUM_COMMENT_URL:DUM_COMMENT_URL
+     DUM_COMMENT_URL:DUM_COMMENT_URL,
+     METHOD_DELETE:METHOD_DELETE
 
  }

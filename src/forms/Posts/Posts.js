@@ -30,6 +30,7 @@ const Posts = () => {
     const [dataPost, setDataPost] = useState(EMPTY_STRING);
     const [imgUrl, setImgUrl] = useState(EMPTY_STRING);
     const [postID, setPostID] = useState(EMPTY_STRING);
+    const [ownerId, setOwnerId]=useState(EMPTY_STRING);
 
     const loadPosts = (page, limit) => {
         //getPostsList(
@@ -59,7 +60,8 @@ const Posts = () => {
         setLastName(posts[index].owner.lastName);
         setDataPost(posts[index].publishDate)
         setImgUrl(posts[index].image);
-        setPostID(postId)
+        setPostID(postId);
+        setOwnerId(posts[index].owner.id);
     }
 
     const [newCurrentPage, setNewCurrentPage] = useState(1);
@@ -106,6 +108,7 @@ const Posts = () => {
                                 imgUrl={imgUrl}
                                 textPost={postText}
                                 postId={postID}
+                                ownerId = {ownerId}
                             />
                         </div>
                         <Pagination className="posts-pagination"

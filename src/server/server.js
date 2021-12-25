@@ -8,7 +8,7 @@ const logger = require('./logger');
 const {DUM_POST_URL, METHOD_GET, APP_ID_VALUE, DUM_USER_URL, METHOD_POST, METHOD_PUT, POST_URL, USER_URL,
     DUM_COMMENT_URL, COMMENT_URL
 } = require("./constants/constants");
-
+const {METHOD_DELETE} = require("./constants/constants");
 const app = express();
 const host = '127.0.0.1'
 const port = 4000
@@ -320,6 +320,33 @@ app.route(`${COMMENT_URL}/create`)//createCommentToProxy
 
     })
 
+app.route(`${POST_URL}/delete`)//deletePostToProxy
+    .delete((req, res) => {
+        console.log('deletePostToProxy',req.query);
+
+        logger.info('deletePostToProxy',req.query);
+        const postId=req.query['postId'].toString();
+        console.log(`${DUM_POST_URL}/${postId}`)
+        fetch(`${DUM_POST_URL}/${postId}`, {
+            method: METHOD_DELETE,
+            headers: {
+                'app-id': APP_ID_VALUE,
+                'Content-Type': 'application/json',
+            },
+            // body: JSON.stringify({'owner':userId,'text':text,'image':img})
+        })
+            .then(resp => {
+                resp.json().then(out => {
+                    console.log("удаление поста, ответ от сервера: ",out);
+                    res.status(200).send(JSON.stringify(out));
+                });
+            })
+            .catch(error => {
+                res.status(500).send('third-party api error');
+                logger.info(error, 'third-party api error');
+            })
+
+    })
 
 app.listen(port, host, () => console.log(`Server started at http://${host}:${port}`));
 

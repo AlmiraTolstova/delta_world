@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Form} from "antd";
+import {Button, Form, Input} from "antd";
 import 'antd/dist/antd.css';
 import {Link} from "react-router-dom";
 import {EMPTY_STRING} from "../../constants/api/common";
@@ -11,7 +11,6 @@ import {ThemeContextConsumer} from "../../context/ThemeContext";
 import {useTranslation} from "react-i18next";
 import onTestNewInfoAboutUser from "../../utils/utils";
 import {UploadOutlined} from "@ant-design/icons";
-
 
 const UserProfile = () => {
     const [img, setImg] = useState(EMPTY_STRING);
@@ -40,59 +39,57 @@ const UserProfile = () => {
     }, [])
 
     const onSendNewInfoAboutUser = () => {
-
-
         console.log(statePAR.id, firstName, SecondName, dateOfBirth, phone, img)
         //dispatch(updateUser(statePAR.id, firstName, SecondName, dateOfBirth, phone));
         dispatch(updateUserToProxy(statePAR.id, firstName, SecondName, dateOfBirth, phone, img));
-
     }
 
-    const onDownloadPicture = ()=>{
+    const onDownloadPicture = () => {
         setImg(file);
     }
 
-    const onClearPicture = ()=>{
+    const onClearPicture = () => {
         setImg('');
     }
 
 
-    const{t}=useTranslation();
+    const {t} = useTranslation();
 
     return (
         <ThemeContextConsumer>
             {
-                (context) =>(
-                <div className="user-profile">
-                <div className={`user-profile__container ${context.darkTheme && 'user-profile__container_dark'}`}>
-                    <img className="user-profile__img" src={img}/>
-                    <div className="user-profile__bts">
-                        <button type="file" onClick={onDownloadPicture}>{t('userProfileReplace')}</button>
-                        <input value={file} onChange={(e) => setFile(e.target.value)}/>
-                        <button onClick={onClearPicture}> {t('userProfileDelete')}</button>
-                    </div>
-                    <Form.Item>
-                        <span>{t('name')} : </span>
-                        <input value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
-                        <input value={SecondName} onChange={(e) => setSecondName(e.target.value)}/>
-                    </Form.Item>
-                    <Form.Item>
-                        <span>{t('gender')}: </span>
-                        <input value={gender}/>
-                    </Form.Item>
-                    <Form.Item>
-                        <span>{t('dateOfBirth')}: </span>
-                        <input value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)}/>
-                    </Form.Item>
-                    <Form.Item>
-                        <span>{t('phone')} </span>
-                        <input value={phone} onChange={(e) => setPhone(e.target.value)}/>
-                    </Form.Item>
-                    <Link>
-                        <Button type="primary" onClick={onSendNewInfoAboutUser}>{t('save')}</Button>
-                    </Link>
-                </div>
-            </div>)
+                (context) => (
+                    <div className="user-profile">
+                        <div
+                            className={`user-profile__container ${context.darkTheme && 'user-profile__container_dark'}`}>
+                            <img className="user-profile__img" src={img}/>
+                            <div className="user-profile__bts">
+                                <Button  type="file" onClick={onDownloadPicture}>{t('userProfileReplace')}</Button>
+                                <Input className="user-profile__input" value={file} onChange={(e) => setFile(e.target.value)}/>
+                                <Button onClick={onClearPicture}> {t('userProfileDelete')}</Button>
+                            </div>
+                            <Form.Item>
+                                <span>{t('name')} : </span>
+                                <Input value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
+                                <Input value={SecondName} onChange={(e) => setSecondName(e.target.value)}/>
+                            </Form.Item>
+                            <Form.Item>
+                                <span>{t('gender')}: </span>
+                                <Input value={gender}/>
+                            </Form.Item>
+                            <Form.Item>
+                                <span>{t('dateOfBirth')}: </span>
+                                <Input value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)}/>
+                            </Form.Item>
+                            <Form.Item>
+                                <span>{t('phone')} </span>
+                                <Input value={phone} onChange={(e) => setPhone(e.target.value)}/>
+                            </Form.Item>
+                            <Link>
+                                <Button type="primary" onClick={onSendNewInfoAboutUser}>{t('save')}</Button>
+                            </Link>
+                        </div>
+                    </div>)
             }
         </ThemeContextConsumer>
     )

@@ -1,6 +1,6 @@
 @import '../../color-style';
 
-.modal {
+.modalAddPost {
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.4);
@@ -15,43 +15,46 @@
   transition: 0.5s;
 }
 
-.modal.active {
+.modalAddPost.active {
   opacity: 1;
   pointer-events: all;
 }
 
-.modal__open-post {
+.modalAddPost__open-post {
+  display: flex;
+  flex-direction: column;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 10px;
   background-color: $white;
   width: 600px;
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 24px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   transition: 0.4s all;
 }
 
-.modal__open-post_dark {
+.modalAddPost__open-post_dark {
   background-color: $gray-color;
   color: $white;
 }
 
-.modal__open-post.active {
+.modalAddPost__open-post.active {
   transform: scale(0.5);
 }
 
-.modal__container {
+.modalAddPost__container {
   padding-top: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.modal__btn {
-  text-align: right;
+.modalAddPost__btn {
+  margin-top: 8px;
+  //text-align: right;
 }
 
-.modal__img {
+.modalAddPost__img {
   align-self: center;
   padding-bottom: 8px;
   border-radius: 8px;
@@ -60,16 +63,16 @@
   object-fit: cover;
 }
 
-.modal__title {
+.modalAddPost__title {
   font-size: 20px;
 }
 
-.modal__text {
+.modalAddPost__text {
   font-size: 24px;
   text-align: left;
 }
 
-.modal__comments {
+.modalAddPost__comments {
   display: flex;
   justify-content: space-between;
   border: 1px solid lightgray;
@@ -80,8 +83,13 @@
   margin-right: 8px;
 }
 
-.modal__comments_photo {
+.modalAddPost__comments_photo {
   border-radius: 50%;
 }
 
-
+@media (max-width:375px) {
+  .modalAddPost__open-post {
+    width: 300px;
+    font-size: 14px;
+  }
+}

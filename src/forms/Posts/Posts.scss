@@ -1,20 +1,39 @@
 @import '../../color-style';
 .posts-form{
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    //background-color: #565656;
+    max-width: 2000px;
 }
 .posts-forms__container{
-    max-width: 2000px;
+    margin: auto;
+    width: 86.4rem;
     display: flex;
-    flex-flow: wrap;
+    //flex-flow: wrap;
     flex-direction: row;
+    justify-content: space-between;
     flex-wrap: wrap;
-    align-content: flex-start;
+    //align-content: flex-start;
     margin-top: 3rem;
-    margin-left: 3rem;
-    margin-right: 3rem;
+    //margin-left: 3rem;
+    //margin-right: 3rem;
 }
 .posts-pagination{
     display: flex;
     justify-content: center;
     margin-bottom: 3rem;
+}
+@media (max-width:1512px) {
+    .posts-forms__container{
+        align-content: center;
+        width: 1500зч;
+    }
+}
+
+@media (max-width:375px) {
+    .posts-forms__container{
+        align-content: center;
+        flex-direction: column;
+    }
 }

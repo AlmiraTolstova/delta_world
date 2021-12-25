@@ -15,12 +15,8 @@ const User = ({avatarImg, userName, lastName, className, title, id}) => {
     const dispatch = useDispatch();
     const onHandleClickByUser = () => {
         console.log(id);
-        //dispatch(getUsersFullInfoByID(id));
         dispatch(getUsersFullInfoByIDFromProxy(id));
-
-        //dispatch(getPostsByUserId(id, 0, 5));
         dispatch(getPostsByUserIdFromProxy(id, 0, 5));
-
     }
 
     return (
@@ -34,9 +30,8 @@ const User = ({avatarImg, userName, lastName, className, title, id}) => {
                             </Link>
                             <div>
                                 <Tooltip title={`id: ${id}`}>
-                                    <span>{title} {userName} {lastName}</span>
+                                    <span className="user__name">{title} {userName} {lastName}</span>
                                 </Tooltip>,
-
                             </div>
                         </div>
                     </div>)

@@ -16,10 +16,8 @@ import {EMPTY_STRING} from "../../constants/api/common";
 const PersonalArea = () => {
     const dispatch = useDispatch();
     const stateLR = useSelector((state => state.loginReducer));
-    //dispatch(getUsersFullInfoByIDFromProxy(stateLR.userId));
     const statePAR = useSelector((state => state.personalAreaReducer));
     const statePUR = useSelector((state => state.postsByUserReducer));
-    //console.log(statePAR);
     console.log(stateLR);
     const {t} = useTranslation();
 
@@ -69,6 +67,8 @@ const PersonalArea = () => {
                             </Button>
                         </Link>
                     </div>
+                    <Button className="personal-area__addBtn" type='primary' onClick={onHandleAddPost} disabled={stateLR.userId ? false : true}>Добавить
+                        пост</Button>
                     <div className={`personal-area__posts ${context.darkTheme && 'personal-area__posts_dark'}`}>
                         {(statePUR.postsList.length != 0)
                             ? statePUR.postsList.map((elem, index) => (
@@ -76,7 +76,7 @@ const PersonalArea = () => {
                                     onHandleClickByPost(elem.id, index)
                                 }}>
                                     <Post
-                                        avatarUrl = {elem.owner.picture}
+                                        avatarUrl={elem.owner.picture}
                                         text={elem.text}
                                         imgUrl={elem.image}
                                     >
@@ -84,10 +84,9 @@ const PersonalArea = () => {
                                 </div>
                             )) : "Пока нет постов"
                         }
-                        <Button type='primary' onClick={onHandleAddPost} disabled={stateLR.userId ? false:true}>Добавить пост</Button>
+
                         <PostAdder
                             Userid={stateLR.userId}>
-
                         </PostAdder>
                         <OpenPost
                             title={postTitle}

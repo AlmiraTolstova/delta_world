@@ -7,17 +7,11 @@ import {ThemeContextConsumer} from "../../context/ThemeContext";
 import {useTranslation} from "react-i18next";
 import '../../locale/i18next';
 import {Button} from "antd";
-import {MouseEventHandler} from "react";
-import {SyntheticEvent} from "react";
-
-
 
 const Footer_form =() =>{
-
     const onChange=(checked)=> {
         console.log(`switch to ${checked}`);
     }
-
         const{t}=useTranslation();
     const handleChangeLanguage=(e:React.MouseEvent<HTMLButtonElement>)=>{
     i18next.changeLanguage(e.currentTarget.value)
@@ -32,7 +26,6 @@ const Footer_form =() =>{
                             <div>
                                 <Button value='en' type="button" onClick={handleChangeLanguage}>EN</Button>
                                 <Button value='ru' type="button" onClick={handleChangeLanguage}>RU</Button>
-
                             </div>
                         </div>
                         <div className="switch-component">
@@ -43,7 +36,5 @@ const Footer_form =() =>{
             }
             </ThemeContextConsumer>
         )
-
-
 };
 export default Footer_form;

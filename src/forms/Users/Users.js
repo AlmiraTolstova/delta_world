@@ -1,15 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import './Users.scss'
-import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import User from "../../components/User/User";
 import {EMPTY_STRING} from "../../constants/api/common";
 import {getUsersList, getUsersListFromProxy} from "../../api/dumMyApi";
-import Post from "../../components/Post/Post";
-import Posts from "../Posts/Posts";
 import {connect, useDispatch, useSelector} from 'react-redux';
-import {bindActionCreators, Dispatch} from "redux";
-import {loadUsers, loginIn} from "../../actions/actions";
 
 import {Pagination} from "antd";
 
@@ -17,15 +12,13 @@ const Users = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(EMPTY_STRING);
     const [error, setError] = useState(EMPTY_STRING);
-    const state = useSelector(state=>state.usersReducer);
-
+    const state = useSelector(state => state.usersReducer);
     console.log(state)
     const dispatch = useDispatch();
-
     const [newCurrentPage, setNewCurrentPage] = useState(1);
 
     useEffect(() => {
-        dispatch(getUsersListFromProxy(newCurrentPage - 1, 10));
+        dispatch(getUsersListFromProxy(newCurrentPage - 1, 8));
         console.log("обновление страницы поехали")
 
     }, [newCurrentPage])

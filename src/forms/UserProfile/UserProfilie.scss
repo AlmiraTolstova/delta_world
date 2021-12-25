@@ -1,38 +1,44 @@
 @import '../../color-style';
 
-.user-profile{
-    max-width: 2000px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    margin-top: 3rem;
-    margin-left: 3rem;
-    margin-right: 3rem;
+.user-profile {
+  max-width: 2000px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  margin-top: 3rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
 }
-.user-profile__container{
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid lightgray;
-    border-radius: 8px;
-    padding: 1rem;
-    width: 600px;
-    background-color:$white;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    align-items: center;
+.user-profile__container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 600px;
+  background-color: $white;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  align-items: center;
 }
-.user-profile__container_dark{
-    background-color:$gray-color;
+.user-profile__container_dark {
+  background-color: $gray-color;
 }
-.user-profile__img{
-    padding-bottom: 8px;
-    border-radius: 8px;
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
+.user-profile__img {
+  padding-bottom: 8px;
+  border-radius: 8px;
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
 }
-.user-profile__bts{
-
+.user-profile__bts {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 8px;
+}
+.user-profile__input {
+  width: 320px;
+  height: 50px;
 }

@@ -17,20 +17,15 @@ const RegistrationForm = () => {
     const dateFormat = 'YYYY/MM/DD';
     const weekFormat = 'MM/DD';
     const monthFormat = 'YYYY/MM';
-
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
-
     const customFormat = value => `custom format: ${value.format(dateFormat)}`;
-
     const customWeekStartEndFormat = value =>
         `${moment(value).startOf('week').format(weekFormat)} ~ ${moment(value)
             .endOf('week')
             .format(weekFormat)}`;
 
     const {Option} = Select;
-
     const dispatch = useDispatch();
-
     const [firstName, setFirstName] = useState(EMPTY_STRING);
     const [secondName, setSecondName] = useState('testFamily');
     const [male, setMale] = useState(EMPTY_STRING);
@@ -52,14 +47,15 @@ const RegistrationForm = () => {
         dispatch(createUserToProxy(firstName, secondName, male, dateOfBirth, email, phone));
     }
 
-    const{t}=useTranslation();
+    const {t} = useTranslation();
 
     return (
         <ThemeContextConsumer>{
             (context) => (
                 <div className={`registration ${context.darkTheme && 'registration_dark'}`}>
-                    <Button className="registration__close-btn" shape="circle" icon={<CloseCircleOutlined/>}>
-                    </Button>
+                    <Link to="/">
+                    <Button className="registration__close-btn" shape="circle" icon={<CloseCircleOutlined/>}></Button>
+                    </Link>
                     <Form>
                         <h1 className={` ${context.darkTheme && 'registration-text_dark'}`}>{t('registration')}</h1>
                         <Form.Item
@@ -70,16 +66,20 @@ const RegistrationForm = () => {
                                     required: true,
                                 },
                             ]}>
-                            <Input className={` ${context.darkTheme && 'registration-text_dark'}`} value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
-                            <Input className={` ${context.darkTheme && 'registration-text_dark'}`} value={secondName} onChange={(e) => setSecondName(e.target.value)}/>
+                            <Input className={` ${context.darkTheme && 'registration-text_dark'}`} value={firstName}
+                                   onChange={(e) => setFirstName(e.target.value)}/>
+                            <Input className={` ${context.darkTheme && 'registration-text_dark'}`} value={secondName}
+                                   onChange={(e) => setSecondName(e.target.value)}/>
                         </Form.Item>
                         <Form.Item>
                             <p className={` ${context.darkTheme && 'registration-text_dark'}`}>{t('gender')}:</p>
                             <Radio.Group value={male} onChange={(e) => {
                                 e.target.value == '1' ? setMale("male") : setMale("female");
                             }}>
-                                <Radio className={` ${context.darkTheme && 'registration-text_dark'}`} value={1}>{t('masculine')}</Radio>
-                                <Radio className={` ${context.darkTheme && 'registration-text_dark'}`} value={2}>{t('female')}</Radio>
+                                <Radio className={` ${context.darkTheme && 'registration-text_dark'}`}
+                                       value={1}>{t('masculine')}</Radio>
+                                <Radio className={` ${context.darkTheme && 'registration-text_dark'}`}
+                                       value={2}>{t('female')}</Radio>
                             </Radio.Group>
                         </Form.Item>
                         <Space direction="horizontal" size={12}>
@@ -117,7 +117,8 @@ const RegistrationForm = () => {
                                 {t('registration')}
                             </Link>
                         </Button>
-                        <Button className={` ${context.darkTheme && 'registration-text_dark'}`} type="text" htmlType="submit">
+                        <Button className={` ${context.darkTheme && 'registration-text_dark'}`} type="text"
+                                htmlType="submit">
                             {t('registrationFormLogin')}
                         </Button>
                     </Form>

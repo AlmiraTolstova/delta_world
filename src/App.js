@@ -16,7 +16,6 @@ import UserProfile from "./forms/UserProfile/UserProfile";
 import OpenPost from "./forms/OpenPost/OpenPost";
 import {ThemeContextConsumer, ThemeContextProvider} from "./context/ThemeContext";
 
-
 const {Header, Footer, Content} = Layout;
 
 function App() {
@@ -53,7 +52,6 @@ function App() {
                                         <Route path="/userprofile">
                                             <UserProfile/>
                                         </Route>
-
                                         <Route path="/">
                                             <Posts/>
                                         </Route>
@@ -70,7 +68,6 @@ function App() {
                         }
                     </ThemeContextConsumer>
                 </Layout>
-
             </ThemeContextProvider>
         </HashRouter>
     );

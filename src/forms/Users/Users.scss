@@ -1,20 +1,29 @@
 @import '../../color-style';
 
 .users{
-    background-color:$white;
+    //background-color:$white;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 2000px;
 }
 .users-form{
-    max-width: 2000px;
+    margin: auto;
+    width: 86.4rem;
     display: flex;
-    flex-flow: wrap;
     flex-direction: row;
-    margin-top: 2rem;
-    margin-left: 3rem;
-    margin-right: 3rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 3rem;
 }
 .users-pagination{
     display: flex;
     justify-content: center;
     margin-bottom: 3rem;
+}
+@media (max-width:375px) {
+    .users-form{
+        align-content: center;
+        flex-direction: column;
+    }
 }

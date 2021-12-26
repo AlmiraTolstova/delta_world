@@ -8,17 +8,15 @@
     background-color:$white;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     margin-bottom: 24px;
-    margin-right: 21px;
+    //margin-right: 21px;
 }
 .user_dark{
     background-color:$gray-color;
     color:$white;
 }
-
 .user__container{
  text-align: center;
 }
-
 .user__img{
     padding-bottom: 8px;
     border-radius: 8px;
@@ -26,4 +24,13 @@
     height: 250px;
     object-fit: cover;
 }
+.user__name{
+    font-size: 18px;
+}
 
+@media (max-width:375px) {
+    .user{
+        width: 300px;
+        height: 300px;
+    }
+}

@@ -39,8 +39,10 @@ const LoginForm =()=> {
             <ThemeContextConsumer>{
                 (context) =>(
                     <Form className={`login-form ${context.darkTheme && 'login-form_dark'}`}>
+                        <Link to="/">
                         <Button className="registration__close-btn" shape="circle" icon={<CloseCircleOutlined/>}>
                         </Button>
+                        </Link>
                     <h1 className={`login-form__h1 ${context.darkTheme && 'login-form__h1_dark'}`}>{t('login')}</h1>
                     <Form.Item
                         label="ID"

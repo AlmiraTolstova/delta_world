@@ -20,44 +20,41 @@ import {ThemeContextConsumer} from "../../context/ThemeContext";
 import {useTranslation} from "react-i18next";
 
 const {SubMenu} = Menu;
-
-const NewMenu = ()=> {
+const NewMenu = () => {
     const handleClick = (e) => {
         setCurrent(e.key)
         //setState({current: e.key});
     };
     const [current, setCurrent] = useState('posts');
-    const state = useSelector(state=>state.loginReducer);
-    const statePAR = useSelector((state=>state.personalAreaReducer));
+    const state = useSelector(state => state.loginReducer);
+    const statePAR = useSelector((state => state.personalAreaReducer));
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         //dispatch(getUsersList(0,9, ));
-        dispatch(getUsersListFromProxy(0,9));
+        dispatch(getUsersListFromProxy(0, 9));
     }, [])
 
-    const onExitButtonClick=()=>{
+    const onExitButtonClick = () => {
         dispatch(loginOut());
     }
 
-    const onSetNeedUserInfoId=()=>{
+    const onSetNeedUserInfoId = () => {
         console.log("запрос фул инфо по пользователю")
         //dispatch(getUsersFullInfoByID(state.userId));
         dispatch(getUsersFullInfoByIDFromProxy(state.userId));
-
-        //dispatch(getPostsByUserId(state.userId, 0, 5));
         dispatch(getPostsByUserIdFromProxy(state.userId, 0, 5));
 
     }
 
-    const{t}=useTranslation();
+    const {t} = useTranslation();
     return (
-            <ThemeContextConsumer>
-                {
-                    (context) =>(
+        <ThemeContextConsumer>
+            {
+                (context) => (
                     <Menu className={`navigator ${context.darkTheme && 'navigator_dark'}`} onClick={handleClick}
                           selectedKeys={[current]} mode="horizontal">
-                        <Menu.Item  key="logo" disabled>
+                        <Menu.Item key="logo" disabled>
                             <img src={logo} alt={"logo"}/>
                             Delta World
                         </Menu.Item>
@@ -101,10 +98,10 @@ const NewMenu = ()=> {
                             </Link>
                         </Menu.Item>
                     </Menu>
-                    )
-                }
-            </ThemeContextConsumer>
-        );
+                )
+            }
+        </ThemeContextConsumer>
+    );
 };
 
 export default NewMenu;

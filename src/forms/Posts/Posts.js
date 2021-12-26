@@ -15,11 +15,11 @@ import openPostReducer from "../../reducers/openPostReducer";
 import {SHOW_POST_WITH_COMMENTS} from "../../constants/actions/actions_const";
 import {setIn} from "immutable";
 import {ThemeContextConsumer} from "../../context/ThemeContext";
+import dateFormat from "dateformat";
 
 const Posts = () => {
     const [posts, setPosts] = useState(EMPTY_STRING);
     const [openPostActive, setOpenPost] = useState(false);
-
     const [index, setIndex] = useState(0);
     const [openedPost, setOpenedPost] = useState();
     const [postText, setPostText] = useState(EMPTY_STRING);
@@ -28,9 +28,9 @@ const Posts = () => {
     const [lastName, setLastName] = useState(EMPTY_STRING);
     const [dataPost, setDataPost] = useState(EMPTY_STRING);
     const [imgUrl, setImgUrl] = useState(EMPTY_STRING);
-
+    const [postID, setPostID] = useState(EMPTY_STRING);
+    const [ownerId, setOwnerId] = useState(EMPTY_STRING);
     const loadPosts = (page, limit) => {
-        //getPostsList(
         getPostsListFromProxy(
             page,
             limit,
@@ -41,14 +41,10 @@ const Posts = () => {
             },
         );
     };
-
     const dispatch = useDispatch();
-
     const onHandleClickByPost = (postId, index) => {
         setIndex(index);
-        //dispatch(getCommentsByPostID(postId, 0, 5));
         dispatch(getCommentsByPostIDFromProxy(postId, 0, 5));
-
         dispatch({type: SHOW_POST_WITH_COMMENTS, payload: true})
         console.log("вывод открытия поста ", postId)
         setPostText(posts[index].text);
@@ -57,65 +53,64 @@ const Posts = () => {
         setLastName(posts[index].owner.lastName);
         setDataPost(posts[index].publishDate)
         setImgUrl(posts[index].image);
+        setPostID(postId);
+        setOwnerId(posts[index].owner.id);
     }
-
-    // useEffect(() => {
-    //     loadPosts(0, 6);
-    //
-    // }, [])
-
     const [newCurrentPage, setNewCurrentPage] = useState(1);
 
     useEffect(() => {
-        loadPosts(newCurrentPage - 1, 8);
+        loadPosts(newCurrentPage - 1, 9);
 
     }, [newCurrentPage])
 
     const onChangePainator = (currentPage, sizeBatch) => {
-        //console.log(`current: ${currentPage},size:${sizeBatch}`)
         setNewCurrentPage(currentPage);
     }
 
     return (
         <ThemeContextConsumer>{
-                (context) => (
-                    <div className={`posts-form ${context.darkTheme && 'posts-form_dark'}`}>
-                        <div className='posts-forms__container'>
-                            {posts.length != 0
-                                ? posts.map((elem, index) => (
-                                    <div onClick={() => {
-                                        onHandleClickByPost(elem.id, index)
-                                    }}>
-                                        <Post
-                                            key={index}
-                                            name={elem.owner.firstName}
-                                            lastName={elem.owner.lastName}
-                                            text={elem.text}
-                                            imgUrl={elem.image}
-                                            datePost={elem.publishDate}
-                                            avatarUrl={elem.owner.picture}
-                                            title={elem.owner.title}
-                                            postId={elem.id}
-                                            userId={elem.owner.id}
-                                        />
-                                    </div>
-                                )) : "Идет загрузка"}
-                            <OpenPost
-                                title={postTitle}
-                                firstName={firstName}
-                                lastName={lastName}
-                                dataPost={dataPost}
-                                imgUrl={imgUrl}
-                                textPost={postText}
-                            />
-                        </div>
+            (context) => (
+                <div className={`posts-form ${context.darkTheme && 'posts-form_dark'}`}>
+                    <div className='posts-forms__container'>
+                        {posts.length != 0
+                            ? posts.map((elem, index) => (
+                                <div onClick={() => {
+                                    onHandleClickByPost(elem.id, index)
+                                }}>
+                                    <Post
+                                        key={index}
+                                        name={elem.owner.firstName}
+                                        lastName={elem.owner.lastName}
+                                        text={elem.text}
+                                        imgUrl={elem.image}
+                                        datePost={dateFormat(elem.publishDate, "yyyy-mm-dd h:MM:ss")}
+                                        avatarUrl={elem.owner.picture}
+                                        title={elem.owner.title}
+                                        postId={elem.id}
+                                        userId={elem.owner.id}
+                                    />
+                                </div>
+                            )) : "Идет загрузка"}
+                        <OpenPost
+                            title={postTitle}
+                            firstName={firstName}
+                            lastName={lastName}
+                            dataPost={dateFormat(dataPost, "yyyy-mm-dd h:MM:ss")}
+                            imgUrl={imgUrl}
+                            textPost={postText}
+                            postId={postID}
+                            ownerId={ownerId}
+                        />
+                    </div>
+                    <div>
                         <Pagination className="posts-pagination"
                                     total={50}
                                     pageSize={5}
                                     current={newCurrentPage}
                                     onChange={onChangePainator}
                         />
-                    </div>)}
+                    </div>
+                </div>)}
         </ThemeContextConsumer>
     )
 }
